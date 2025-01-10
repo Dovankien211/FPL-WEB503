@@ -5,9 +5,9 @@ const app = express();
 app.use(express.json());
 
 const data = [
-    { id: 1, name: "A", price: 100 },
+    { id: 1, name: "A", price: 100 }, // product
     { id: 2, name: "B", price: 200 },
-    { id: 3, name: "C", price: 300 },
+    { id: 3, name: "C", price: 300 }, // product.id = 3
 ];
 /**
  * @route   GET /products
@@ -54,7 +54,13 @@ app.post("/products", (req, res) => {
 
     return res.status(201).json(newProduct);
 });
-
+/**
+ * @route   DELETE /products/:id
+ * @desc    Xóa một sản phẩm theo ID
+ * @access  Public
+ * @param   {number} req.params.id - ID của sản phẩm cần xóa
+ * @returns {Object} Thông báo trạng thái và thông tin sản phẩm đã xóa
+ * */
 app.delete("/products/:id", (req, res) => {
     const { id } = req.params;
     const product = data.find((item) => item.id === +id);
@@ -70,6 +76,22 @@ app.delete("/products/:id", (req, res) => {
         data: product,
     });
 });
+
+app.put("/products/:id", (req, res) => {
+    const existProduct = data.find((item) => item.id === +req.params.id);
+    if (!existProduct) {
+        return res.status(404).json({
+            message: "Sản phẩm không tồn tại!",
+        });
+    }
+    // cập nhật
+    data.map((product) => (product.id === +req.params.id ? req.body : product));
+
+    return res.status(200).json({
+        message: "Cập nhật thành công!",
+        data: { ...existProduct, ...req.body },
+    });
+});
 export const viteNodeApp = app;
 
 // Viết API nào thì test luôn API đấy
@@ -83,4 +105,15 @@ export const viteNodeApp = app;
  *  - tìm sản phẩm trong db dựa theo id, nếu không có sp thông báo không tìm thấy sản phẩm
  *  - Sử dụng method filter để lọc ra những phần tử khác với id
  *  - nếu thành công trả về status 200 và thông báo xóa thành công
+ */
+
+/**
+ * B1: Định nghĩa router
+ *  - METHOD: PUT
+ *  - URL: /products/:id
+ * B2:
+ *  - Lấy id từ params, lấy body từ client gửi lên
+ *  - Tìm sản phẩm trong db dựa theo id, nếu không có sp thông báo không tìm thấy sản phẩm
+ *  - Cập nhật sản phẩm trong mảng data
+ *  - nếu thành công trả về status 200 và thông báo cập nhật thành công và trả về sản phẩm đã cập nhật thành công
  */
