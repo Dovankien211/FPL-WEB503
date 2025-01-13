@@ -1,8 +1,26 @@
+import Joi from "joi";
+
 const data = [
     { id: 1, name: "A", price: 100 }, // product
     { id: 2, name: "B", price: 200 },
     { id: 3, name: "C", price: 300 }, // product.id = 3
 ];
+
+// schema
+
+const productSchema = Joi.object({
+    id: Joi.number().optional(),
+    name: Joi.string().required().min(3).messages({
+        "string.empty": "Tên sản phẩm không được để trống",
+        "string.min": "Tên sản phẩm phải có ít nhất {#limit} ký tự",
+        "any.required": "Tên sản phẩm là bắt buộc",
+    }),
+    price: Joi.number().required().min(0).messages({
+        "number.base": "Giá sản phẩm phải là số",
+        "number.empty": "Giá sản phẩm không được để trống",
+        "number.min": "Giá sản phẩm phải lớn hơn hoặc bằng {#limit}",
+    }),
+});
 
 /**
  * @route   GET /products
@@ -37,12 +55,15 @@ export const getProductById = (req, res) => {
  * @returns {Object} Thông tin sản phẩm vừa được thêm hoặc thông báo lỗi
  * */
 export const createProduct = (req, res) => {
-    const { id, name, price } = req.body;
-    if (!name || !price) {
-        return res.status(400).json({
-            message: "Thiếu trường dữ liệu",
-        });
+    const { error, value } = productSchema.validate(req.body, {
+        abortEarly: false, // cho phép hiển thị nhiều lỗi
+        convert: false, // không tự động chuyển đổi dữ liệu
+    });
+    if (error) {
+        const errors = error.details.map((err) => err.message);
+        return res.status(400).json(errors);
     }
+
     const existProduct = data.find((item) => item.id === id);
     if (existProduct) {
         return res.status(400).json({
