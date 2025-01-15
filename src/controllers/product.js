@@ -1,13 +1,7 @@
 import Joi from "joi";
-
-const data = [
-    { id: 1, name: "A", price: 100 }, // product
-    { id: 2, name: "B", price: 200 },
-    { id: 3, name: "C", price: 300 }, // product.id = 3
-];
+import Product from "../models/product";
 
 // schema
-
 const productSchema = Joi.object({
     id: Joi.number().optional(),
     name: Joi.string().required().min(3).messages({
@@ -54,26 +48,23 @@ export const getProductById = (req, res) => {
  * @property {number} price - Giá của sản phẩm (bắt buộc)
  * @returns {Object} Thông tin sản phẩm vừa được thêm hoặc thông báo lỗi
  * */
-export const createProduct = (req, res) => {
-    const { error, value } = productSchema.validate(req.body, {
-        abortEarly: false, // cho phép hiển thị nhiều lỗi
-        convert: false, // không tự động chuyển đổi dữ liệu
-    });
-    if (error) {
-        const errors = error.details.map((err) => err.message);
-        return res.status(400).json(errors);
-    }
-
-    const existProduct = data.find((item) => item.id === id);
-    if (existProduct) {
+export const createProduct = async (req, res) => {
+    try {
+        const { error, value } = productSchema.validate(req.body, {
+            abortEarly: false, // cho phép hiển thị nhiều lỗi
+            convert: false, // không tự động chuyển đổi dữ liệu
+        });
+        if (error) {
+            const errors = error.details.map((err) => err.message);
+            return res.status(400).json(errors);
+        }
+        const product = await Product.create(value);
+        return res.status(201).json(product);
+    } catch (error) {
         return res.status(400).json({
-            message: "Sản phẩm đã tồn tại",
+            message: error,
         });
     }
-    const newProduct = { id, name, price };
-    data.push(newProduct);
-
-    return res.status(201).json(newProduct);
 };
 
 /**
