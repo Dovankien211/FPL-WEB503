@@ -21,21 +21,26 @@ const productSchema = Joi.object({
  * @desc    Lấy toàn bộ danh sách sản phẩm
  * @access  Public
  * @returns {Array} Danh sách sản phẩm
- *
- * Response Example:
- * [
- *     { "id": 1, "name": "Product A", "price": 100 },
- *     { "id": 2, "name": "Product B", "price": 200 },
- *     { "id": 3, "name": "Product C", "price": 300 },
- *     { "id": 4, "name": "Product D", "price": 400 }
- * ]
  */
-export const getProducts = (req, res) => {
-    res.json(data);
+export const getProducts = async (req, res) => {
+    try {
+        const products = await Product.find();
+        return res.status(200).json(products);
+    } catch (error) {
+        return res.status(400).json({
+            message: error,
+        });
+    }
 };
-export const getProductById = (req, res) => {
-    const product = data.find((item) => item.id === +req.params.id);
-    return res.status(200).json(product);
+export const getProductById = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        return res.status(200).json(product);
+    } catch (error) {
+        return res.status(400).json({
+            message: error,
+        });
+    }
 };
 
 /**
@@ -74,34 +79,78 @@ export const createProduct = async (req, res) => {
  * @param   {number} req.params.id - ID của sản phẩm cần xóa
  * @returns {Object} Thông báo trạng thái và thông tin sản phẩm đã xóa
  * */
-export const removeProduct = (req, res) => {
-    const { id } = req.params;
-    const product = data.find((item) => item.id === +id);
-    if (!product) {
-        return res.status(404).json({
-            message: "Sản phẩm không tồn tại!",
+export const removeProduct = async (req, res) => {
+    // const { id } = req.params;
+    // const product = data.find((item) => item.id === +id);
+    // if (!product) {
+    //     return res.status(404).json({
+    //         message: "Sản phẩm không tồn tại!",
+    //     });
+    // }
+    // // xóa sản phẩm
+    // data.filter((product) => product.id !== +id);
+    // return res.status(200).json({
+    //     message: "Xóa sản phẩm thành công",
+    //     data: product,
+    // });
+    try {
+        const product = await Product.findByIdAndDelete(req.params.id);
+
+        if (!product) {
+            return res.status(404).json({
+                message: "Sản phẩm không tồn tại!",
+            });
+        }
+        return res.status(200).json({
+            message: "Xóa sản phẩm thành công",
+            data: product,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: error,
         });
     }
-    // xóa sản phẩm
-    data.filter((product) => product.id !== +id);
-    return res.status(200).json({
-        message: "Xóa sản phẩm thành công",
-        data: product,
-    });
 };
 
-export const updateProduct = (req, res) => {
-    const existProduct = data.find((item) => item.id === +req.params.id);
-    if (!existProduct) {
-        return res.status(404).json({
-            message: "Sản phẩm không tồn tại!",
+export const updateProduct = async (req, res) => {
+    // const existProduct = data.find((item) => item.id === +req.params.id);
+    // if (!existProduct) {
+    //     return res.status(404).json({
+    //         message: "Sản phẩm không tồn tại!",
+    //     });
+    // }
+    // // cập nhật
+    // data.map((product) => (product.id === +req.params.id ? req.body : product));
+
+    // return res.status(200).json({
+    //     message: "Cập nhật thành công!",
+    //     data: { ...existProduct, ...req.body },
+    // });
+
+    try {
+        const { error, value } = productSchema.validate(req.body, {
+            abortEarly: false, // cho phép hiển thị nhiều lỗi
+            convert: false, // không tự động chuyển đổi dữ liệu
+        });
+        if (error) {
+            const errors = error.details.map((err) => err.message);
+            return res.status(400).json(errors);
+        }
+
+        const product = await Product.findByIdAndUpdate(req.params.id, value, { new: true });
+
+        if (!product) {
+            return res.status(404).json({
+                message: "Sản phẩm không tồn tại!",
+            });
+        }
+        return res.status(200).json({
+            message: "Cập nhật phẩm thành công",
+            data: product,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: error,
         });
     }
-    // cập nhật
-    data.map((product) => (product.id === +req.params.id ? req.body : product));
-
-    return res.status(200).json({
-        message: "Cập nhật thành công!",
-        data: { ...existProduct, ...req.body },
-    });
 };
