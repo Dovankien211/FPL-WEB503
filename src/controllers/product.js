@@ -80,19 +80,6 @@ export const createProduct = async (req, res) => {
  * @returns {Object} Thông báo trạng thái và thông tin sản phẩm đã xóa
  * */
 export const removeProduct = async (req, res) => {
-    // const { id } = req.params;
-    // const product = data.find((item) => item.id === +id);
-    // if (!product) {
-    //     return res.status(404).json({
-    //         message: "Sản phẩm không tồn tại!",
-    //     });
-    // }
-    // // xóa sản phẩm
-    // data.filter((product) => product.id !== +id);
-    // return res.status(200).json({
-    //     message: "Xóa sản phẩm thành công",
-    //     data: product,
-    // });
     try {
         const product = await Product.findByIdAndDelete(req.params.id);
 
@@ -113,20 +100,6 @@ export const removeProduct = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
-    // const existProduct = data.find((item) => item.id === +req.params.id);
-    // if (!existProduct) {
-    //     return res.status(404).json({
-    //         message: "Sản phẩm không tồn tại!",
-    //     });
-    // }
-    // // cập nhật
-    // data.map((product) => (product.id === +req.params.id ? req.body : product));
-
-    // return res.status(200).json({
-    //     message: "Cập nhật thành công!",
-    //     data: { ...existProduct, ...req.body },
-    // });
-
     try {
         const { error, value } = productSchema.validate(req.body, {
             abortEarly: false, // cho phép hiển thị nhiều lỗi
@@ -136,7 +109,6 @@ export const updateProduct = async (req, res) => {
             const errors = error.details.map((err) => err.message);
             return res.status(400).json(errors);
         }
-
         const product = await Product.findByIdAndUpdate(req.params.id, value, { new: true });
 
         if (!product) {
