@@ -3,7 +3,6 @@ import Product from "../models/product";
 
 // schema
 const productSchema = Joi.object({
-    id: Joi.number().optional(),
     name: Joi.string().required().min(3).messages({
         "string.empty": "Tên sản phẩm không được để trống",
         "string.min": "Tên sản phẩm phải có ít nhất {#limit} ký tự",
