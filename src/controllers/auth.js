@@ -1,4 +1,5 @@
 import Joi from "joi";
+import bcrypt from "bcryptjs";
 import User from "../models/user";
 
 const userSchema = Joi.object({
@@ -18,7 +19,17 @@ export const signup = async (req, res) => {
             const errors = error.details.map((error) => error.message);
             return res.status(400).json(errors);
         }
-        console.log(value);
+        const existUser = await User.findOne({ email: value.email });
+        if (existUser) {
+            return res.status(400).json({
+                message: "Tài khoản đã tồn tại",
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(value.password, 10);
+        const user = await User.create({ ...value, password: hashedPassword });
+        user.password = undefined;
+        return res.status(201).json(user);
     } catch (error) {
         return res.status(500).json({
             message: error.message,
