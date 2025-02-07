@@ -4,7 +4,7 @@ import User from "../models/user";
 
 const userSchema = Joi.object({
     username: Joi.string().required().min(6),
-    email: Joi.string().required().email(),
+    email: Joi.string().required().email().trim(),
     password: Joi.string().required().min(6),
     confirmPassword: Joi.string().required().valid(Joi.ref("password")),
 });
