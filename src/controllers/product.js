@@ -23,8 +23,16 @@ const productSchema = Joi.object({
  * @returns {Array} Danh sách sản phẩm hiện tại
  * */
 export const getProducts = async (req, res) => {
+    const { _page = 1, _limit = 10, _sort = "price", _order = "desc" } = req.query;
+    const options = {
+        page: _page,
+        limit: _limit,
+        sort: {
+            [_sort]: _order === "asc" ? -1 : 1,
+        },
+    };
     try {
-        const products = await Product.find();
+        const products = await Product.paginate({}, options);
         return res.status(200).json(products);
     } catch (error) {
         return res.status(400).json({
