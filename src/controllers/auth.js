@@ -8,7 +8,10 @@ const userSchema = Joi.object({
     password: Joi.string().required().min(6),
     confirmPassword: Joi.string().required().valid(Joi.ref("password")),
 });
-
+const signInSchema = Joi.object({
+    email: Joi.string().required().email().trim(),
+    password: Joi.string().required().min(6),
+});
 export const signup = async (req, res) => {
     try {
         const { error, value } = userSchema.validate(req.body, {
@@ -36,6 +39,35 @@ export const signup = async (req, res) => {
         });
     }
 };
+
+export const signin = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const { error } = signInSchema.validate(req.body, {
+            abortEarly: false,
+        });
+        if (error) {
+            const errors = error.details.map((err) => err.message);
+            return res.status(400).json(errors);
+        }
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({
+                message: "Tài khoản không tồn tại",
+            });
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({
+                message: "Mật khẩu không chính xác",
+            });
+        }
+        return res.status(200).json({
+            message: "Đăng nhập thành công",
+            user: user,
+        });
+    } catch (error) {}
+};
 /**
  * B1: Lấy thông tin từ req.body: username, email, password
  *     - Kiểm tra username: required, string, min: 6
@@ -47,4 +79,15 @@ export const signup = async (req, res) => {
  * B4: Nếu chưa thì tạo mới user với thông tin từ req.body
  *     - Mã hóa password từ req.body
  *     - Lưu thông tin vào database
+ */
+
+/**
+ * B1: Viết hàm signin
+ * B2: Xây dựng Schema validate Signin
+ * B3: Validate thông tin từ req.body thông qua signInSchema
+ * B4: Kiểm tra email đã tồn tại chưa
+ *  - Nếu không tồn tại rồi thì thông báo lỗi
+ * B5: So sánh mật khẩu từ req.body với mật khẩu trong database
+ * B6: Nếu mật khẩu không khớp thì thông báo lỗi
+ * B7: trả về thông tin user đã đăng nhập: id, username, email, role, token
  */
