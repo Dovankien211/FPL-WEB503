@@ -1,6 +1,7 @@
 import Joi from "joi";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
+import jwt from "jsonwebtoken";
 
 const userSchema = Joi.object({
     username: Joi.string().required().min(6),
@@ -62,9 +63,13 @@ export const signin = async (req, res) => {
                 message: "Mật khẩu không chính xác",
             });
         }
+        const token = jwt.sign({ id: user._id }, "123456", { expiresIn: "30m" });
+        user.password = undefined;
+
         return res.status(200).json({
             message: "Đăng nhập thành công",
-            user: user,
+            user,
+            token,
         });
     } catch (error) {}
 };
