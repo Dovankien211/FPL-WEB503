@@ -74,6 +74,7 @@ export const getProductById = async (req, res) => {
  * @returns {Object} Thông tin sản phẩm vừa được thêm hoặc thông báo lỗi
  * */
 export const createProduct = async (req, res) => {
+    console.log(req.user);
     try {
         const { error, value } = productSchema.validate(req.body, {
             abortEarly: false, // cho phép hiển thị nhiều lỗi
