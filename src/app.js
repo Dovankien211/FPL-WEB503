@@ -1,12 +1,14 @@
 import express from "express";
-// what? 1 framework nodejs
-// why? nhanh, nhẹ, dễ sử dụng
-// when? khi cần xây dựng 1 ứng dụng web
+import cors from "cors";
 import mongoose from "mongoose";
 import productRouter from "./routers/product";
+
 import authRouter from "./routers/auth";
 const app = express();
+
+// middleware
 app.use(express.json());
+app.use(cors());
 // Kết nối db
 mongoose.connect(`mongodb://localhost:27017/wd19321`);
 
