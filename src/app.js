@@ -13,4 +13,5 @@ mongoose.connect(`mongodb://localhost:27017/wd19320`);
 
 app.use("/api", productRouter);
 app.use("/api", authRouter);
+
 export const viteNodeApp = app;

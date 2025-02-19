@@ -52,6 +52,7 @@ export const signin = async (req, res) => {
             return res.status(400).json(errors);
         }
         const user = await User.findOne({ email });
+
         if (!user) {
             return res.status(400).json({
                 message: "Tài khoản không tồn tại",
@@ -63,9 +64,10 @@ export const signin = async (req, res) => {
                 message: "Mật khẩu không chính xác",
             });
         }
-        const token = jwt.sign({ id: user._id }, "123456", { expiresIn: "30m" });
-        user.password = undefined;
 
+        const token = jwt.sign({ id: user._id }, "123456", { expiresIn: "30m" });
+
+        user.password = undefined;
         return res.status(200).json({
             message: "Đăng nhập thành công",
             user,

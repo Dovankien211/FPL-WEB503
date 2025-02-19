@@ -6,12 +6,14 @@ import {
     removeProduct,
     updateProduct,
 } from "../controllers/product";
+import { checkAuth } from "../middlewares/checkAuth";
+
 const router = Router();
 
 router.get("/products", getProducts);
 router.get("/products/:id", getProductById);
-router.post("/products", createProduct);
-router.delete("/products/:id", removeProduct);
-router.put("/products/:id", updateProduct);
+router.post("/products", checkAuth, createProduct);
+router.delete("/products/:id", checkAuth, removeProduct);
+router.put("/products/:id", checkAuth, updateProduct);
 
 export default router;
