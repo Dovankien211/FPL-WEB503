@@ -15,6 +15,7 @@ const productSchema = Joi.object({
         "number.positive": "Giá sản phẩm phải là số dương",
         "any.required": "Giá sản phẩm bắt buộc nhập",
     }),
+    categoryId: Joi.string().required(),
 });
 /**
  * @route   GET /products

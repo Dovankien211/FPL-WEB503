@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import productRouter from "./routers/product";
 import dotenv from "dotenv";
 import authRouter from "./routers/auth";
+import categoryRouter from "./routers/category";
 import morgan from "morgan";
 
 const app = express();
@@ -19,6 +20,7 @@ mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`);
 
 // routers
 app.use("/api", productRouter);
+app.use("/api", categoryRouter);
 app.use("/api", authRouter);
 
 export const viteNodeApp = app;
