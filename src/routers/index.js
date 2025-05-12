@@ -1,10 +1,9 @@
 import express from "express";
+import routePost from "./posts.js";
 
 const router = express.Router();
 
-router.get("/posts", () => {
-    console.log("Danh sách bài viết");
-});
+router.use("/posts", routePost);
 
 export default router;
 
