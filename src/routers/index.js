@@ -1,5 +1,5 @@
 import express from "express";
-import routePost from "./posts.js";
+import routePost from "./posts";
 
 const router = express.Router();
 
