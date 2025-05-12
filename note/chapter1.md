@@ -17,7 +17,7 @@
     ```
 7. Chỉnh sửa file `package.json`
 
-````json
+```json
 "type": "module",
 "scripts": {
     "start": "node src/app.js",
@@ -58,7 +58,7 @@ const app = express();
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
-````
+```
 
 ## Cấu hình router
 
