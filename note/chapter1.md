@@ -32,3 +32,22 @@
 
 7. Tạo file `.env`
 8. Tạo file `.gitignore`, truy cập [gitignore.io](https://gitignore.io) để tạo file .gitignore
+
+## Cấu hình .env
+
+-   PORT: 8000
+
+## Cập nhật file App.js
+
+```js
+import express from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const app = express();
+
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port ${process.env.PORT}`);
+});
+```
