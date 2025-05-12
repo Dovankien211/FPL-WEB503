@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import router from "./routers/index.js";
+import router from "./routers";
 
 dotenv.config();
 const app = express();
@@ -8,5 +8,5 @@ const app = express();
 app.use("/api", router);
 
 app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port 3000`);
+    console.log(`Server is running on port ${process.env.PORT}`);
 });
