@@ -51,3 +51,16 @@ app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
 ```
+
+## Cấu hình router
+
+1. Tạo file `src/routers/index.js`
+2. Tạo file `src/routers/posts.js`
+3. Cập nhật file `src/app.js`
+
+```js
+import express from "express";
+import router from "./routers/index.js";
+
+router.use("/api", router);
+```
