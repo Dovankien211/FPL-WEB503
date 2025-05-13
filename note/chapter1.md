@@ -21,7 +21,7 @@ npm i -g pnpm
 
 ## 2. Khởi tạo dự án Node.js
 
--   Tạo một thư mục mới cho dự án, ví dụ: `FPL-WEB503`. Tên gì cũng được, miễn các em dễ nhớ.
+-   Tạo một thư mục mới cho dự án, ví dụ: `WD20104`. Tên gì cũng được, miễn các em dễ nhớ.
 -   Mở terminal, di chuyển vào thư mục đó và khởi tạo dự án:
 
     ```bash
