@@ -16,7 +16,7 @@
 1. Tạo thư mục dự án mới (nếu chưa có).
 2. Khởi tạo dự án Node.js:
     ```bash
-    pnpm init -y
+    npm init -y
     ```
 3. Cài đặt các thư viện cần thiết:
     ```bash
