@@ -79,7 +79,7 @@ npm i -g pnpm
 -   Mở terminal, di chuyển vào thư mục đó và khởi tạo dự án:
 
     ```bash
-    pnpm init -y
+    npm init -y
     ```
 
     Lệnh này sẽ tạo file `package.json` – nơi lưu thông tin dự án và các thư viện sẽ cài đặt sau này.
