@@ -1,144 +1,207 @@
-# Buổi 2: Thực hành xây dựng API Node.js/Express – Hiểu về Request/Response & CRUD với dữ liệu giả
+# Buổi 2: Tổng quan về Request/Response và Middleware cơ bản trong Express
 
 ## Mục tiêu
 
--   Tự tay khởi tạo dự án Node.js/Express, cấu hình Babel, tổ chức code khoa học.
--   Hiểu rõ khái niệm Request và Response trong Express, biết cách lấy dữ liệu từ server và trả kết quả về client.
--   Thực hành CRUD với mảng dữ liệu giả, sử dụng các hàm JavaScript như `map`, `filter`, `find`, spread operator (`...`).
+-   Ôn tập và thực hành lại cài đặt từ buổi 1.
+-   Hiểu rõ Request và Response trong Express, cách lấy và trả dữ liệu cơ bản.
+-   Thực hành viết các endpoint đơn giản.
+-   Làm quen với middleware cơ bản, chuẩn bị cho việc sử dụng phương thức POST.
 
 ---
 
-## 1. Thực hành ôn tập bài 1 (Checklist)
+## 1. Thực hành ôn tập buổi 1
 
--   [ ] Khởi tạo thư mục dự án mới (ví dụ: `WD20104-API`)
--   [ ] Khởi tạo Node.js project với `pnpm init -y`
--   [ ] Cài đặt các thư viện: express, mongoose, cors, bcryptjs, jsonwebtoken, dotenv, morgan
--   [ ] Cài đặt Babel và nodemon cho môi trường phát triển
--   [ ] Tạo file `.babelrc` cấu hình preset-env
--   [ ] Tạo cấu trúc thư mục như sau:
+### Các bước thực hiện
+
+1. Tạo thư mục dự án mới (nếu chưa có).
+2. Khởi tạo dự án Node.js:
+    ```bash
+    pnpm init -y
+    ```
+3. Cài đặt các thư viện cần thiết:
+    ```bash
+    pnpm i express dotenv
+    ```
+4. Cài đặt Babel và nodemon:
+    ```bash
+    pnpm i -D @babel/core @babel/node @babel/preset-env nodemon
+    ```
+5. Tạo file `.babelrc` với nội dung:
+    ```json
+    {
+        "presets": ["@babel/preset-env"]
+    }
+    ```
+6. Tạo cấu trúc thư mục:
     ```
     src/
       app.js
       routers/
         index.js
-        posts.js
     .babelrc
     .env
-    .gitignore
     ```
--   [ ] Viết mã nguồn cho `src/app.js` để khởi tạo server Express, sử dụng dotenv, import router
--   [ ] Viết mã nguồn cho `src/routers/index.js` và `src/routers/posts.js` (tách router như bài 1)
--   [ ] Chạy thử dự án với `pnpm run dev` và kiểm tra endpoint `/api/posts` bằng Postman
+7. Thêm script vào `package.json`:
+    ```json
+    "scripts": {
+      "dev": "nodemon --exec babel-node src/app.js"
+    }
+    ```
 
 ---
 
 ## 2. Tổng quan về Request và Response trong Express
 
-Trước khi thực hành CRUD, các em cần hiểu rõ hai khái niệm quan trọng khi làm việc với API:
+### Request (Yêu cầu)
 
-**Request (Yêu cầu):** Là thông tin mà client (trình duyệt, Postman, ứng dụng di động...) gửi lên server. Trong Express, đối tượng này là `req`.
+Request là thông tin mà client gửi lên server. Trong Express, đối tượng này là `req`.
 
 -   Một số thuộc tính thường dùng:
+    -   `req.body`: Dữ liệu gửi từ client (thường dùng với POST, PUT).
+    -   `req.params`: Tham số động trên URL (ví dụ: `/posts/:id`).
+    -   `req.query`: Tham số truy vấn trên URL (ví dụ: `/posts?search=abc`).
 
-    -   `req.body`: Dữ liệu gửi lên từ client (thường dùng với POST, PUT)
-    -   `req.params`: Tham số động trên URL (ví dụ: `/posts/:id`)
-    -   `req.query`: Tham số truy vấn trên URL (ví dụ: `/posts?search=abc`)
+### Response (Phản hồi)
 
-    **Response (Phản hồi):** Là thông tin mà server trả về cho client. Trong Express, đối tượng này là `res`.
+Response là thông tin mà server trả về cho client. Trong Express, đối tượng này là `res`.
 
 -   Một số phương thức thường dùng:
-    -   `res.json(data)`: Trả về dữ liệu dạng JSON
-    -   `res.send(data)`: Trả về dữ liệu dạng text hoặc HTML
-    -   `res.status(code)`: Thiết lập mã trạng thái HTTP (ví dụ: 200, 404, 500...)
+    -   `res.json(data)`: Trả về dữ liệu dạng JSON.
+    -   `res.send(data)`: Trả về dữ liệu dạng text hoặc HTML.
+    -   `res.status(code)`: Thiết lập mã trạng thái HTTP (ví dụ: 200, 404, 500...).
 
-#### Ví dụ minh họa:
+---
+
+### Ví dụ minh họa
+
+**src/routers/index.js**
 
 ```js
+import { Router } from "express";
+
+const router = Router();
+
 // GET /hello?name=Teo
 router.get("/hello", (req, res) => {
     const name = req.query.name || "bạn";
-    res.send(`Xin chào, ${name}!`);
+    res.json({ message: `Xin chào, ${name}!` });
 });
 
-// GET /posts/123
+// GET /posts/:id
 router.get("/posts/:id", (req, res) => {
     const id = req.params.id;
     res.json({ id, message: "Chi tiết bài viết" });
 });
 
-// POST /posts (body: { title, content })
+// POST /posts
 router.post("/posts", (req, res) => {
     const { title, content } = req.body;
-    res.json({ title, content, message: "Đã nhận dữ liệu từ client" });
+    res.status(201).json({ title, content, message: "Bài viết đã được tạo" });
 });
+
+export default router;
 ```
 
----
-
-## 3.Thực hành CRUD với mảng fake và các hàm JS
-
-Trong giai đoạn đầu học Node.js/Express, hãy thực hành CRUD (Create, Read, Update, Delete) với một mảng dữ liệu giả (fake array) trong file code, sử dụng các hàm JavaScript như `map`, `filter`, `find`, spread operator (`...`).
-
--   Giúp hiểu rõ bản chất thao tác dữ liệu (thêm, sửa, xóa, tìm kiếm) trước khi làm việc với database thật.
--   Không cần cài đặt database phức tạp, tập trung vào luồng xử lý API.
--   Khi chuyển sang database (MongoDB, MySQL...), chỉ cần thay các thao tác mảng bằng thao tác với DB.
-
-**Yêu cầu:**
-
--   [ ] Thêm endpoint mới: `GET /api/posts/:id` trả về chi tiết một bài viết (dữ liệu mẫu tự tạo)
--   [ ] Thêm endpoint `POST /api/posts` để thêm bài viết mới (dữ liệu lưu tạm trong mảng)
--   [ ] Thêm endpoint `DELETE /api/posts/:id` để xóa bài viết
--   [ ] Thêm endpoint `PUT /api/posts/:id` để cập nhật bài viết
-
-> **Lưu ý:** Đây là dữ liệu tạm thời, chỉ dùng để học và test API.
-
-#### Ví dụ minh họa:
+**src/app.js**
 
 ```js
-let posts = [
-    { id: 1, title: "Bài viết 1", content: "Nội dung 1" },
-    { id: 2, title: "Bài viết 2", content: "Nội dung 2" },
-];
+import express from "express";
+import dotenv from "dotenv";
+import router from "./routers";
 
-// GET all
-router.get("/", (req, res) => res.json(posts));
+dotenv.config();
+const app = express();
 
-// GET by id
-router.get("/:id", (req, res) => {
-    const post = posts.find((p) => p.id == req.params.id);
-    res.json(post || {});
-});
+app.use("/api", router);
 
-// POST
-router.post("/", (req, res) => {
-    const newPost = { id: Date.now(), ...req.body };
-    posts.push(newPost);
-    res.json(newPost);
-});
-
-// DELETE
-router.delete("/:id", (req, res) => {
-    posts = posts.filter((p) => p.id != req.params.id);
-    res.json({ success: true });
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server is running on port ${process.env.PORT || 3000}`);
 });
 ```
 
-## 3. Gợi ý thực hiện
+---
 
--   Có thể sử dụng ChatGPT để sinh ra mảng dữ liệu bài viết mẫu (title, content, author, id, ...), sau đó copy vào file code.
--   Có thể tham khảo lại code mẫu ở buổi 1 hoặc tài liệu chính thức của Express.
--   Nếu gặp lỗi, hãy đọc kỹ thông báo lỗi, thử tìm kiếm trên Google hoặc hỏi bạn bè/thầy giáo.
--   Đặt tên biến, hàm, file rõ ràng, dễ hiểu.
--   Sau khi hoàn thành, chụp màn hình kết quả test API trên Postman để nộp bài.
+## 3. Bài thực hành nhỏ
+
+### Yêu cầu
+
+1. Tạo endpoint `GET /api/greet` trả về lời chào với tên từ query string (ví dụ: `/api/greet?name=Ken`).
+2. Tạo endpoint `GET /api/sum` nhận hai số từ query string (`a` và `b`) và trả về tổng của chúng.
+
+### Gợi ý
+
+**src/routers/index.js**
+
+```js
+// GET /greet?name=Ken
+router.get("/greet", (req, res) => {
+    const name = req.query.name || "bạn";
+    res.json({ message: `Xin chào, ${name}!` });
+});
+
+// GET /sum?a=5&b=10
+router.get("/sum", (req, res) => {
+    const a = parseInt(req.query.a, 10) || 0;
+    const b = parseInt(req.query.b, 10) || 0;
+    res.json({ sum: a + b });
+});
+```
 
 ---
 
-## 4. Đánh giá
+## 4. Middleware cơ bản trong Express
 
--   Hoàn thành checklist cơ bản: 7 điểm
--   Làm thêm phần nâng cao: tối đa 3 điểm thưởng
--   Đặt câu hỏi, thảo luận, chia sẻ kinh nghiệm: cộng điểm tích cực
+Middleware là các hàm trung gian trong Express, được sử dụng để xử lý request trước khi nó đến các route handler hoặc xử lý response trước khi gửi về client.
+
+### Phân loại middleware
+
+1. **Middleware tự định nghĩa**  
+   Đây là các middleware do lập trình viên tự viết để xử lý logic cụ thể.
+
+    #### Ví dụ:
+
+    ```js
+    // Middleware tự định nghĩa để ghi log thông tin request
+    const logRequest = (req, res, next) => {
+        console.log(`${req.method} ${req.url}`);
+        next(); // Chuyển tiếp đến middleware tiếp theo
+    };
+
+    app.use(logRequest); // Sử dụng middleware
+    ```
+
+2. **Middleware sử dụng `app.use`**  
+   Express cung cấp sẵn một số middleware tích hợp hoặc từ thư viện bên ngoài, ví dụ: `express.json()` để parse JSON, `express.static()` để phục vụ file tĩnh.
+
+    #### Ví dụ:
+
+    ```js
+    // Middleware tích hợp để parse JSON
+    app.use(express.json());
+
+    // Middleware tích hợp để phục vụ file tĩnh
+    app.use(express.static("public"));
+    ```
 
 ---
 
-Chúc các em thực hành vui vẻ, chủ động sáng tạo và biết tận dụng AI để tăng hiệu quả học tập! 🚀
+### Sử dụng `express.json()` để xử lý dữ liệu JSON
+
+Khi client gửi dữ liệu JSON trong body của request (ví dụ: với phương thức POST), cần sử dụng middleware `express.json()` để Express tự động parse dữ liệu JSON thành đối tượng JavaScript.
+
+#### Ví dụ:
+
+```js
+app.use(express.json());
+
+app.post("/api/posts", (req, res) => {
+    const { title, content } = req.body;
+    res.json({ title, content, message: "Dữ liệu đã được xử lý" });
+});
+```
+
+> **Lưu ý:** Nếu không sử dụng `express.json()`, `req.body` sẽ là `undefined`.
+
+---
+
+Chúc các em thực hành vui vẻ và sáng tạo! 🚀
