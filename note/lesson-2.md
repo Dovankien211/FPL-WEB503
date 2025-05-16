@@ -47,6 +47,19 @@
       "dev": "nodemon --exec babel-node src/app.js"
     }
     ```
+8. Cấu hình biến môi trường
+   Tạo file `.env` với nội dung:
+
+    ```env
+    PORT=8000
+    ```
+
+    Tạo file `.gitignore` với nội dung:
+
+    ```
+    node_modules
+    .env
+    ```
 
 ---
 
@@ -91,12 +104,6 @@ router.get("/hello", (req, res) => {
 router.get("/posts/:id", (req, res) => {
     const id = req.params.id;
     res.json({ id, message: "Chi tiết bài viết" });
-});
-
-// POST /posts
-router.post("/posts", (req, res) => {
-    const { title, content } = req.body;
-    res.status(201).json({ title, content, message: "Bài viết đã được tạo" });
 });
 
 export default router;

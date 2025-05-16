@@ -8,5 +8,12 @@ routePost.get("/", () => {
 routePost.get("/:id", () => {
     console.log("Một bài viết");
 });
+routePost.post("/", (req, res) => {
+    const { name, content } = req.body;
+    return res.json({
+        name,
+        content,
+    });
+});
 
 export default routePost;
