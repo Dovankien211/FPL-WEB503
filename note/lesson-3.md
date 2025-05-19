@@ -179,4 +179,4 @@ app.listen(process.env.PORT, () => {
 
 ---
 
-Chúc các em thành công! 🚀
+Chúc các em thực hành vui vẻ và sáng tạo! 🚀
