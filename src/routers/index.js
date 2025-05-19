@@ -1,18 +1,8 @@
-import express from "express";
+import { Router } from "express";
 import routePost from "./posts";
 
-const router = express.Router();
+const router = Router();
 
 router.use("/posts", routePost);
 
 export default router;
-
-// router.post();
-// router.put();
-// router.delete();
-
-// RESTFUL API
-// GET: Lấy dữ liệu
-// POST: Tạo dữ liệu
-// PUT: Cập nhật dữ liệu
-// DELETE: Xóa dữ liệu
