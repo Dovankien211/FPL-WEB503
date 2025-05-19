@@ -1,0 +1,177 @@
+{
+    "info": {
+        "_postman_id": "8dfea270-cdf2-4f5a-9831-804ec962c724",
+        "name": "WD20105",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "22685679"
+    },
+    "item": [
+        {
+            "name": "Posts CRUD",
+            "item": [
+                {
+                    "name": "Lấy danh sách bài viết",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/posts",
+                            "host": ["{{host}}"],
+                            "path": ["posts"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Danh sách bài viết mẫu",
+                            "originalRequest": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "{{host}}/posts",
+                                    "host": ["{{host}}"],
+                                    "path": ["posts"]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "body": "[{\n  \"id\": 1, \"title\": \"Bài viết 1\", \"content\": \"Nội dung bài viết 1\" },{\n  \"id\": 2, \"title\": \"Bài viết 2\", \"content\": \"Nội dung bài viết 2\" }]"
+                        }
+                    ]
+                },
+                {
+                    "name": "Lấy chi tiết bài viết theo id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/posts/1",
+                            "host": ["{{host}}"],
+                            "path": ["posts", "1"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Chi tiết bài viết id=1",
+                            "originalRequest": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "{{host}}/posts/1",
+                                    "host": ["{{host}}"],
+                                    "path": ["posts", "1"]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n  \"id\": 1, \"title\": \"Bài viết 1\", \"content\": \"Nội dung bài viết 1\" }"
+                        }
+                    ]
+                },
+                {
+                    "name": "Thêm bài viết mới",
+                    "request": {
+                        "method": "POST",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Bài viết mới\",\n  \"content\": \"Nội dung bài viết mới\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/posts",
+                            "host": ["{{host}}"],
+                            "path": ["posts"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Bài viết mới được thêm",
+                            "originalRequest": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "{{host}}/posts",
+                                    "host": ["{{host}}"],
+                                    "path": ["posts"]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"title\": \"Bài viết mới\",\n  \"content\": \"Nội dung bài viết mới\"\n}"
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "body": "{\n  \"id\": 3, \"title\": \"Bài viết mới\", \"content\": \"Nội dung bài viết mới\" }"
+                        }
+                    ]
+                },
+                {
+                    "name": "Cập nhật bài viết",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Tiêu đề mới\",\n  \"content\": \"Nội dung mới\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/posts/1",
+                            "host": ["{{host}}"],
+                            "path": ["posts", "1"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Bài viết đã cập nhật",
+                            "originalRequest": {
+                                "method": "PUT",
+                                "url": {
+                                    "raw": "{{host}}/posts/1",
+                                    "host": ["{{host}}"],
+                                    "path": ["posts", "1"]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"title\": \"Tiêu đề mới\",\n  \"content\": \"Nội dung mới\"\n}"
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n  \"id\": 1, \"title\": \"Tiêu đề mới\", \"content\": \"Nội dung mới\" }"
+                        }
+                    ]
+                },
+                {
+                    "name": "Xóa bài viết",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/posts/1",
+                            "host": ["{{host}}"],
+                            "path": ["posts", "1"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Kết quả xóa bài viết",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "url": {
+                                    "raw": "{{host}}/posts/1",
+                                    "host": ["{{host}}"],
+                                    "path": ["posts", "1"]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n  \"success\": true }"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "host",
+            "value": "http://localhost:8000/api"
+        }
+    ]
+}
