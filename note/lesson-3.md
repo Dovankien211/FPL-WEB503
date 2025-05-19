@@ -135,33 +135,48 @@ app.listen(process.env.PORT, () => {
 
 ---
 
-## 3. Bài tập thực hành
+## 3. Bài tập nâng cao
 
-1. **Xử lý lỗi:**
-
-    - Trả về 400 nếu dữ liệu gửi lên khi thêm/sửa bài viết không hợp lệ (ví dụ: thiếu `title` hoặc `content`).
-    - Trả về 404 nếu không tìm thấy bài viết khi cập nhật hoặc xóa.
-
-2. **Phân trang:**
-
-    - Thêm endpoint `GET /api/posts?page=1&limit=5` để trả về danh sách bài viết theo trang.
-
-3. **Tìm kiếm:**
+1. **Tìm kiếm:**
 
     - Thêm endpoint `GET /api/posts?search=keyword` để tìm kiếm bài viết theo tiêu đề.
 
-4. **Middleware:**
-    - Viết middleware để log thông tin request (method, URL, thời gian).
+    - Nếu có tham số `search`, trả về danh sách bài viết có tiêu đề chứa từ khóa tìm kiếm (không phân biệt hoa thường).
+    - Nếu không có tham số `search`, trả về tất cả bài viết.
+    - Nếu không tìm thấy bài viết nào, trả về danh sách rỗng.
+    - Nếu có lỗi xảy ra, trả về mã trạng thái 500 và thông báo lỗi.
+    - Nếu không có bài viết nào, trả về mã trạng thái 404 và thông báo lỗi.
+
+    #### Gợi ý:
+
+    ```javascript
+    // GET /api/posts?search=keyword
+
+    router.get("/", (req, res) => {
+        try {
+            const { search } = req.query;
+
+            if (search) {
+                const filteredPosts = posts.filter((post) =>
+                    post.title.toLowerCase().includes(search.toLowerCase())
+                );
+                if (filteredPosts.length === 0) {
+                    return res.status(404).json({ error: "No posts found" });
+                }
+                return res.json(filteredPosts);
+            }
+
+            if (posts.length === 0) {
+                return res.status(404).json({ error: "No posts available" });
+            }
+
+            return res.json(posts);
+        } catch (error) {
+            return res.status(500).json({ error: "Server error", message: error.message });
+        }
+    });
+    ```
 
 ---
 
-## 4. Tài liệu tham khảo
-
--   [Express.js Documentation](https://expressjs.com/)
--   [MDN Web Docs: HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
--   [JavaScript Array Methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
--   [Postman Documentation](https://learning.postman.com/docs/getting-started/introduction/)
-
----
-
-Chúc các em thực hành vui vẻ và sáng tạo! 🚀
+Chúc các em thành công! 🚀
