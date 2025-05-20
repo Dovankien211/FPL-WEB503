@@ -179,4 +179,87 @@ app.listen(process.env.PORT, () => {
 
 ---
 
-Chúc các em thực hành vui vẻ và sáng tạo! 🚀
+## 4. Hướng dẫn tạo collections test API sử dụng Postman
+
+### 4.1 Export file Postman
+
+1. Mở Postman và chọn Collection mà bạn muốn export (ví dụ: `WD20105`).
+2. Nhấn chuột phải vào Collection và chọn **Export**.
+3. Chọn định dạng **Collection v2.1** (khuyến nghị) và nhấn **Export**.
+4. Lưu file JSON vào thư mục dự án, ví dụ: `/Users/ken/Folders/Training/FPL-WEB503/note/WD20105.postman_collection.json`.
+
+---
+
+### 4.2 Sử dụng AI để tạo tài liệu từ file JSON
+
+#### Gợi ý prompt để tạo tài liệu API từ file JSON:
+
+<blockquote>Hãy tạo tài liệu API từ file JSON sau. File này chứa các endpoint CRUD cho bài viết, bao gồm các phương thức GET, POST, PUT, DELETE. Dưới đây là nội dung file JSON:</blockquote>
+
+```json
+{
+    "info": {
+        "name": "WD20105",
+        "description": "Collection API CRUD cho bài viết",
+        ...
+    },
+    "item": [
+        {
+            "name": "Lấy danh sách bài viết",
+            "request": {
+                "method": "GET",
+                "url": "{{host}}/posts"
+            },
+            ...
+        },
+        {
+            "name": "Thêm bài viết mới",
+            "request": {
+                "method": "POST",
+                "url": "{{host}}/posts",
+                "body": {
+                    "mode": "raw",
+                    "raw": "{ \"title\": \"Bài viết mới\", \"content\": \"Nội dung bài viết mới\" }"
+                }
+            },
+            ...
+        },
+        ...
+    ],
+    "variable": [
+        {
+            "key": "host",
+            "value": "http://localhost:8000/api"
+        }
+    ]
+}
+```
+
+#### Kết quả mong đợi:
+
+-   Tài liệu API được tạo từ file JSON, bao gồm:
+    -   Tên endpoint.
+    -   Phương thức HTTP (GET, POST, PUT, DELETE).
+    -   URL endpoint.
+    -   Mô tả dữ liệu gửi lên (nếu có).
+    -   Mô tả dữ liệu trả về (nếu có).
+    -   Biến môi trường `host` được thiết lập để dễ dàng thay đổi URL gốc.
+
+---
+
+### 4.3 Import file JSON vào Postman
+
+1. Mở Postman và nhấn vào nút **Import** ở góc trên bên trái.
+2. Chọn tab **File** và nhấn **Upload Files**.
+3. Chọn file JSON đã export (ví dụ: `WD20105.postman_collection.json`) và nhấn **Open**.
+4. Sau khi import thành công, bạn sẽ thấy Collection xuất hiện trong Postman.
+
+---
+
+### 4.4 Tạo tài liệu Markdown từ file JSON
+
+...existing content...
+
+---
+
+Chúc các em học tốt! 🚀
