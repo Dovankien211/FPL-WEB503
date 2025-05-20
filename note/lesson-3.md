@@ -56,7 +56,7 @@ let posts = [
 **src/routers/posts.js**
 
 ```javascript
-// filepath: /Users/ken/Folders/Training/FPL-WEB503/src/routers/posts.js
+// filepath: FPL-WEB503/src/routers/posts.js
 import express from "express";
 
 const router = express.Router();
@@ -117,7 +117,7 @@ export default router;
 **src/app.js**
 
 ```javascript
-// filepath: /Users/ken/Folders/Training/FPL-WEB503/src/app.js
+// filepath: FPL-WEB503/src/app.js
 import express from "express";
 import dotenv from "dotenv";
 import postsRouter from "./routers/posts";
@@ -186,7 +186,7 @@ app.listen(process.env.PORT, () => {
 1. Mở Postman và chọn Collection mà bạn muốn export (ví dụ: `WD20105`).
 2. Nhấn chuột phải vào Collection và chọn **Export**.
 3. Chọn định dạng **Collection v2.1** (khuyến nghị) và nhấn **Export**.
-4. Lưu file JSON vào thư mục dự án, ví dụ: `/Users/ken/Folders/Training/FPL-WEB503/note/WD20105.postman_collection.json`.
+4. Lưu file JSON vào thư mục dự án, ví dụ: `FPL-WEB503/note/WD20105.postman_collection.json`.
 
 ---
 

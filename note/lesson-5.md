@@ -48,7 +48,7 @@
 **src/models/Product.js**
 
 ```javascript
-FPL - WEB503 / src / models / Product.js;
+// filepath: FPL-WEB503/src/models/Product.js
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
@@ -122,7 +122,7 @@ export default Product;
 **src/controllers/productController.js**
 
 ```javascript
-FPL - WEB503 / src / controllers / productController.js;
+// filepath: FPL-WEB503/src/controllers/productController.js
 import Product from "../models/Product";
 
 // Lấy danh sách sản phẩm
@@ -190,7 +190,7 @@ export const deleteProduct = async (req, res) => {
 **src/routers/products.js**
 
 ```javascript
-FPL - WEB503 / src / routers / products.js;
+// filepath: FPL-WEB503/src/routers/products.js
 import { Router } from "express";
 import {
     getProducts,
@@ -227,7 +227,7 @@ export default routeProduct;
 **src/app.js**
 
 ```javascript
-FPL - WEB503 / src / app.js;
+// filepath: FPL-WEB503/src/app.js
 import express from "express";
 import dotenv from "dotenv";
 import router from "./routers";
@@ -257,7 +257,7 @@ app.listen(process.env.PORT, () => {
 **src/routers/index.js**
 
 ```javascript
-FPL - WEB503 / src / routers / index.js;
+// filepath: FPL-WEB503/src/routers/index.js
 import { Router } from "express";
 import routePost from "./posts";
 import routeProduct from "./products";
