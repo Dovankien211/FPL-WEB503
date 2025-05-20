@@ -17,13 +17,14 @@ routePosts.get("/:id", (req, res) => {
     return res.json(post);
 });
 routePosts.post("/", (req, res) => {
-    console.log(req.body);
+    const { title, content } = req.body;
+    const newPost = { id: Date.now(), title: title, content: content };
+    posts.push(newPost);
+    return res.status(201).json(newPost);
 });
 routePosts.put("/", () => {
     console.log("Cập nhật bài viết");
 });
-routePosts.delete("/", () => {
-    console.log("Xóa bài viết");
-});
+routePosts.delete("/:id", (req, res) => {});
 
 export default routePosts;
