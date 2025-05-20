@@ -299,7 +299,7 @@ export default routePost;
 
 ---
 
-### Kết luận về việc tách pattern models, controller, router
+### Lý do về việc tách pattern models, controller, router
 
 -   **Tách models:**  
     Models chịu trách nhiệm định nghĩa cấu trúc dữ liệu và tương tác trực tiếp với cơ sở dữ liệu. Điều này giúp bạn dễ dàng quản lý và mở rộng các schema khi cần.
@@ -318,7 +318,7 @@ export default routePost;
 
 ---
 
-### 5.6 Yêu cầu sinh viên test API bằng Postman
+### 5.6 Test API bằng Postman
 
 Sau khi hoàn thành việc tích hợp Mongoose và tách controller, hãy kiểm tra các API đã xây dựng bằng Postman:
 
