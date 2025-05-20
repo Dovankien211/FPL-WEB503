@@ -1,9 +1,5 @@
 # Buổi 5: Thực hành CRUD với MongoDB và Mongoose (Sản phẩm)
 
-Chào các em! 👋 Hôm nay chúng ta sẽ cùng nhau thực hành xây dựng API CRUD đầy đủ với MongoDB và Mongoose. Đây là một bước tiến quan trọng trong việc xây dựng ứng dụng backend hiện đại. Các em sẽ học cách tổ chức code khoa học, xử lý lỗi hiệu quả và phản hồi trạng thái HTTP đúng chuẩn.
-
----
-
 ## Mục tiêu
 
 -   Thực hành xây dựng API CRUD đầy đủ với MongoDB và Mongoose.
@@ -18,19 +14,13 @@ Chào các em! 👋 Hôm nay chúng ta sẽ cùng nhau thực hành xây dựng 
 
 1. **Kết nối MongoDB:**
 
-    Đầu tiên, các em cần kết nối ứng dụng của mình với MongoDB. Các em có thể sử dụng MongoDB Atlas (cloud) hoặc MongoDB cài đặt trên máy.
-
+    - Sử dụng MongoDB Atlas hoặc MongoDB cài đặt trên máy.
     - Tạo file `.env` và thêm URI kết nối:
-
         ```env
         MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority
         ```
 
-    - Đừng quên thêm `.env` vào file `.gitignore` để bảo mật thông tin kết nối.
-
 2. **Tạo cấu trúc thư mục:**
-
-    Để code gọn gàng và dễ bảo trì, chúng ta sẽ tổ chức dự án theo cấu trúc sau:
 
     ```
     src/
@@ -44,7 +34,6 @@ Chào các em! 👋 Hôm nay chúng ta sẽ cùng nhau thực hành xây dựng 
     ```
 
 3. **Thực hiện các thao tác CRUD:**
-
     - `create`: Thêm sản phẩm mới.
     - `read`: Lấy danh sách sản phẩm hoặc chi tiết sản phẩm theo ID.
     - `update`: Cập nhật thông tin sản phẩm.
@@ -55,8 +44,6 @@ Chào các em! 👋 Hôm nay chúng ta sẽ cùng nhau thực hành xây dựng 
 ## 2. Hướng dẫn thực hành
 
 ### Định nghĩa Schema và Model
-
-Đầu tiên, chúng ta cần định nghĩa cấu trúc dữ liệu cho sản phẩm bằng Mongoose. Đây là bước rất quan trọng để đảm bảo dữ liệu được lưu trữ đúng định dạng.
 
 **src/models/Product.js**
 
@@ -86,6 +73,11 @@ const productSchema = new mongoose.Schema(
             required: [true, "Giá sản phẩm là bắt buộc"],
             min: [0, "Giá sản phẩm không được âm"],
         },
+        discountPrice: {
+            type: Number,
+            min: [0, "Giá khuyến mãi không được âm"],
+        },
+        images: [String],
         stock: {
             type: Number,
             required: [true, "Số lượng tồn kho là bắt buộc"],
@@ -103,6 +95,17 @@ const productSchema = new mongoose.Schema(
             enum: ["draft", "published", "archived"],
             default: "draft",
         },
+        featured: {
+            type: Boolean,
+            default: false,
+        },
+        ratings: {
+            type: Number,
+            default: 0,
+            min: [0, "Đánh giá thấp nhất là 0"],
+            max: [5, "Đánh giá cao nhất là 5"],
+            set: (val) => Math.round(val * 10) / 10, // Làm tròn đến 1 chữ số thập phân
+        },
     },
     { timestamps: true, versionKey: false }
 );
@@ -115,8 +118,6 @@ export default Product;
 ---
 
 ### Tách Controller để quản lý logic
-
-Tiếp theo, chúng ta sẽ tách logic xử lý ra khỏi router và đặt vào controller. Điều này giúp code gọn gàng và dễ bảo trì hơn.
 
 **src/controllers/productController.js**
 
@@ -186,8 +187,6 @@ export const deleteProduct = async (req, res) => {
 
 ### Sử dụng Controller trong Router
 
-Bây giờ, chúng ta sẽ sử dụng các hàm trong controller để xử lý các endpoint.
-
 **src/routers/products.js**
 
 ```javascript
@@ -225,16 +224,13 @@ export default routeProduct;
 
 ### Tích hợp Router vào Ứng dụng
 
-Cuối cùng, chúng ta sẽ tích hợp router vào ứng dụng chính.
-
 **src/app.js**
 
 ```javascript
 // filepath: FPL-WEB503/src/app.js
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
-import routeProduct from "./routers/products";
+import router from "./routers";
 
 dotenv.config();
 const app = express();
@@ -247,7 +243,7 @@ mongoose
 
 // Middleware
 app.use(express.json());
-app.use("/api/products", routeProduct);
+app.use("/api", router);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
@@ -256,12 +252,33 @@ app.listen(process.env.PORT, () => {
 
 ---
 
+### Cấu hình Router chính
+
+**src/routers/index.js**
+
+```javascript
+// filepath: FPL-WEB503/src/routers/index.js
+import { Router } from "express";
+import routePost from "./posts";
+import routeProduct from "./products";
+
+const router = Router();
+
+// Sử dụng router cho bài viết
+router.use("/posts", routePost);
+
+// Sử dụng router cho sản phẩm
+router.use("/products", routeProduct);
+
+export default router;
+```
+
+---
+
 ## 3. Kết luận
 
-Các em thấy không, việc xây dựng API CRUD với MongoDB và Mongoose không hề khó nếu chúng ta tổ chức code khoa học. Hãy nhớ:
+-   Buổi thực hành này giúp bạn hiểu rõ cách xây dựng API CRUD đầy đủ với MongoDB và Mongoose.
+-   Việc tổ chức code theo pattern models, controllers, và routers giúp dự án dễ bảo trì và mở rộng.
+-   Hãy kiểm tra API bằng Postman để đảm bảo mọi chức năng hoạt động đúng.
 
--   **Models:** Định nghĩa cấu trúc dữ liệu.
--   **Controllers:** Xử lý logic nghiệp vụ.
--   **Routers:** Định nghĩa các endpoint API.
-
-Chúc các em học tốt! 🚀 Nếu có thắc mắc, đừng ngại hỏi thầy nhé! 😊
+Chúc các em học tốt! 🚀
