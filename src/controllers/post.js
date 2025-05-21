@@ -36,5 +36,28 @@ export const createPost = async (req, res) => {
         });
     }
 };
-export const updatePost = async (req, res) => {};
-export const deletePost = async (req, res) => {};
+export const updatePost = async (req, res) => {
+    try {
+        const { title, content } = req.body;
+        const { id } = req.params;
+        const post = await Post.findByIdAndUpdate(id, { title, content }, { new: true });
+        if (!post) return res.json({ message: "Không tìm thấy bài viết!" });
+        return res.status(201).json(post);
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message,
+        });
+    }
+};
+export const deletePost = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const post = await Post.findByIdAndDelete(id);
+        if (!post) return res.json({ message: "Không tìm thấy bài viết!" });
+        return res.status(201).json(post);
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message,
+        });
+    }
+};
