@@ -2,8 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import router from "./routers";
 import morgan from "morgan";
+import connectDB from "./config/database";
 dotenv.config();
 const app = express();
+connectDB();
 
 // middleware
 app.use(express.json());

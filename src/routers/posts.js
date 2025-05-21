@@ -1,27 +1,11 @@
 import express from "express";
+import { createPost, getAllPosts, getPostById } from "../controllers/post";
 
 const routePosts = express.Router();
-let posts = [
-    { id: 1, title: "Bài viết 1", content: "Nội dung bài viết 1" }, // 1 ==
-    { id: 2, title: "Bài viết 2", content: "Nội dung bài viết 2" }, // p
-];
-routePosts.get("/", (req, res) => {
-    res.json(posts);
-});
-routePosts.get("/:id", (req, res) => {
-    const post = posts.find((p) => p.id === +req.params.id);
-    if (!post)
-        return res.status(404).json({
-            message: "Không có bài viết nào!",
-        });
-    return res.json(post);
-});
-routePosts.post("/", (req, res) => {
-    const { title, content } = req.body;
-    const newPost = { id: Date.now(), title: title, content: content };
-    posts.push(newPost);
-    return res.status(201).json(newPost);
-});
+
+routePosts.get("/", getAllPosts);
+routePosts.get("/:id", getPostById);
+routePosts.post("/", createPost);
 routePosts.put("/", () => {
     console.log("Cập nhật bài viết");
 });
