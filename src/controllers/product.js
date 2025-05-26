@@ -1,4 +1,5 @@
 import Product from "../models/product";
+import { createProductSchema } from "../validations/product";
 
 // Lấy danh sách sản phẩm
 export const getProducts = async (req, res) => {
@@ -56,3 +57,7 @@ export const deleteProduct = async (req, res) => {
         res.status(500).json({ error: "Lỗi server", message: err.message });
     }
 };
+
+// Bước 1: Cài đặt joi
+// Bước 2: Tạo Schema
+// Bước 3: Sử dụng joi để validate dữ liệu : schema.validate(req.body)

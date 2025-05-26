@@ -6,6 +6,8 @@ import {
     updateProduct,
     deleteProduct,
 } from "../controllers/product";
+import { validateRequest } from "../middleware/validateRequest";
+import { createProductSchema, updateProductSchema } from "../validations/product";
 
 const routeProduct = Router();
 
@@ -16,10 +18,10 @@ routeProduct.get("/", getProducts);
 routeProduct.get("/:id", getProductById);
 
 // Thêm sản phẩm mới
-routeProduct.post("/", createProduct);
+routeProduct.post("/", validateRequest(createProductSchema), createProduct);
 
 // Cập nhật sản phẩm
-routeProduct.put("/:id", updateProduct);
+routeProduct.put("/:id", validateRequest(updateProductSchema), updateProduct);
 
 // Xóa sản phẩm
 routeProduct.delete("/:id", deleteProduct);
