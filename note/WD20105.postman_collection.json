@@ -166,6 +166,84 @@
                     ]
                 }
             ]
+        },
+        {
+            "name": "Products CRUD",
+            "item": [
+                {
+                    "name": "Lấy danh sách sản phẩm",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/products",
+                            "host": ["{{host}}"],
+                            "path": ["products"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Lấy chi tiết sản phẩm theo id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/products/:id",
+                            "host": ["{{host}}"],
+                            "path": ["products", ":id"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Thêm sản phẩm mới",
+                    "request": {
+                        "method": "POST",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Sản phẩm mới\",\n  \"slug\": \"san-pham-moi\",\n  \"description\": \"Mô tả sản phẩm mới\",\n  \"price\": 150000,\n  \"discountPrice\": 120000,\n  \"images\": [\"img3.jpg\"],\n  \"stock\": 20,\n  \"sku\": \"SKU003\",\n  \"status\": \"published\",\n  \"featured\": false,\n  \"ratings\": 5\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/products",
+                            "host": ["{{host}}"],
+                            "path": ["products"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Cập nhật sản phẩm",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Sản phẩm cập nhật\",\n  \"price\": 200000\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/products/:id",
+                            "host": ["{{host}}"],
+                            "path": ["products", ":id"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Xóa sản phẩm",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/products/:id",
+                            "host": ["{{host}}"],
+                            "path": ["products", ":id"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
         }
     ],
     "variable": [
