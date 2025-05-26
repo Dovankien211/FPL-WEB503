@@ -17,12 +17,12 @@ export const getAllPosts = async (req, res) => {
 export const getPostById = async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
-        if(!post){
+        if (!post) {
             return res.status(404).json({
                 message: "Không tìm thấy bài viết",
             });
         }
-        return res.json(post)
+        return res.json(post);
     } catch (error) {
         return res.status(500).json({
             message: error.message,
@@ -41,8 +41,8 @@ export const createPost = async (req, res) => {
 };
 export const updatePost = async (req, res) => {
     try {
-       const post =  await Post.findByIdAndUpdate(req.params.id, req.body, { new: true})
-       return res.json(post);
+        const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        return res.json(post);
     } catch (error) {
         return res.status(500).json({
             message: error.message,
@@ -52,7 +52,7 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
     try {
         await Post.findByIdAndDelete(req.params.id);
-        return res.json({ success: true});
+        return res.json({ success: true });
     } catch (error) {
         return res.status(500).json({
             message: error.message,
