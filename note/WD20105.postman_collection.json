@@ -283,6 +283,42 @@
                             "body": "{\n  \"message\": \"Đăng ký thành công\",\n  \"user\": {\n    \"_id\": \"660f1e2b8f1b2c0012345678\",\n    \"name\": \"Nguyen Van A\",\n    \"email\": \"a@gmail.com\",\n    \"phone\": \"0912345678\",\n    \"role\": \"customer\",\n    \"avatar\": \"https://i.pravatar.cc/150?img=1\",\n    \"addresses\": [\n      {\n        \"street\": \"123 Đường ABC\",\n        \"city\": \"Hà Nội\",\n        \"isDefault\": true\n      },\n      {\n        \"street\": \"456 Đường XYZ\",\n        \"city\": \"Hồ Chí Minh\",\n        \"isDefault\": false\n      }\n    ],\n    \"createdAt\": \"2024-05-01T10:00:00.000Z\",\n    \"updatedAt\": \"2024-05-01T10:00:00.000Z\"\n  }\n}"
                         }
                     ]
+                },
+                {
+                    "name": "Đăng nhập",
+                    "request": {
+                        "method": "POST",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"a@gmail.com\",\n  \"password\": \"12345678\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/auth/signin",
+                            "host": ["{{host}}"],
+                            "path": ["auth", "signin"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Đăng nhập thành công",
+                            "originalRequest": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "{{host}}/auth/signin",
+                                    "host": ["{{host}}"],
+                                    "path": ["auth", "signin"]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"email\": \"a@gmail.com\",\n  \"password\": \"12345678\"\n}"
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Đăng nhập thành công\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MGYxZTJiOGYxYjJjMDAxMjM0NTY3OCIsImlhdCI6MTY5MzYwMDAwMCwiZXhwIjoxNjkzNjAzNjAwfQ.abc123xyz456\"\n}"
+                        }
+                    ]
                 }
             ]
         }
