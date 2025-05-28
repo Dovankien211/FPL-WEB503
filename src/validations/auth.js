@@ -8,11 +8,15 @@ export const signupSchema = Joi.object({
         "string.max": "Tên không được vượt quá {#limit} ký tự",
         "any.required": "Tên là bắt buộc",
     }),
-    email: Joi.string().email().required().messages({
-        "string.email": "Email không hợp lệ",
-        "string.empty": "Email không được để trống",
-        "any.required": "Email là bắt buộc",
-    }),
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+        .required()
+        .messages({
+            "string.base": "Email phải là chuỗi",
+            "string.empty": "Email không được để trống",
+            "string.email": "Email không hợp lệ",
+            "any.required": "Email là bắt buộc",
+        }),
     password: Joi.string().required().min(6).messages({
         "string.min": "Mật khẩu phải có ít nhất {#limit} ký tự",
         "string.empty": "Mật khẩu không được để trống",
