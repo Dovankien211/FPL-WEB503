@@ -1,13 +1,13 @@
 {
     "info": {
-        "_postman_id": "8dfea270-cdf2-4f5a-9831-804ec962c725",
+        "_postman_id": "8dfea270-cdf2-4f5a-9831-804ec962c724",
         "name": "WD20104",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-        "_exporter_id": "22685680"
+        "_exporter_id": "22685679"
     },
     "item": [
         {
-            "name": "Posts CRUD",
+            "name": "Bài viết",
             "item": [
                 {
                     "name": "Lấy danh sách bài viết",
@@ -168,7 +168,7 @@
             ]
         },
         {
-            "name": "Products CRUD",
+            "name": "Sản phẩm",
             "item": [
                 {
                     "name": "Lấy danh sách sản phẩm",
@@ -181,22 +181,7 @@
                             "path": ["products"]
                         }
                     },
-                    "response": [
-                        {
-                            "name": "Danh sách sản phẩm mẫu",
-                            "originalRequest": {
-                                "method": "GET",
-                                "url": {
-                                    "raw": "{{host}}/products",
-                                    "host": ["{{host}}"],
-                                    "path": ["products"]
-                                }
-                            },
-                            "status": "OK",
-                            "code": 200,
-                            "body": "[{\n  \"_id\": \"1\", \"name\": \"Sản phẩm 1\", \"slug\": \"san-pham-1\", \"description\": \"Mô tả sản phẩm 1\", \"price\": 100000, \"discountPrice\": 90000, \"images\": [\"img1.jpg\"], \"stock\": 10, \"sku\": \"SKU001\", \"status\": \"published\", \"featured\": true, \"ratings\": 4.5 },{\n  \"_id\": \"2\", \"name\": \"Sản phẩm 2\", \"slug\": \"san-pham-2\", \"description\": \"Mô tả sản phẩm 2\", \"price\": 200000, \"discountPrice\": 180000, \"images\": [\"img2.jpg\"], \"stock\": 5, \"sku\": \"SKU002\", \"status\": \"draft\", \"featured\": false, \"ratings\": 3.8 }]"
-                        }
-                    ]
+                    "response": []
                 },
                 {
                     "name": "Lấy chi tiết sản phẩm theo id",
@@ -204,27 +189,12 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{host}}/products/1",
+                            "raw": "{{host}}/products/:id",
                             "host": ["{{host}}"],
-                            "path": ["products", "1"]
+                            "path": ["products", ":id"]
                         }
                     },
-                    "response": [
-                        {
-                            "name": "Chi tiết sản phẩm id=1",
-                            "originalRequest": {
-                                "method": "GET",
-                                "url": {
-                                    "raw": "{{host}}/products/1",
-                                    "host": ["{{host}}"],
-                                    "path": ["products", "1"]
-                                }
-                            },
-                            "status": "OK",
-                            "code": 200,
-                            "body": "{\n  \"_id\": \"1\", \"name\": \"Sản phẩm 1\", \"slug\": \"san-pham-1\", \"description\": \"Mô tả sản phẩm 1\", \"price\": 100000, \"discountPrice\": 90000, \"images\": [\"img1.jpg\"], \"stock\": 10, \"sku\": \"SKU001\", \"status\": \"published\", \"featured\": true, \"ratings\": 4.5 }"
-                        }
-                    ]
+                    "response": []
                 },
                 {
                     "name": "Thêm sản phẩm mới",
@@ -241,26 +211,7 @@
                             "path": ["products"]
                         }
                     },
-                    "response": [
-                        {
-                            "name": "Sản phẩm mới được thêm",
-                            "originalRequest": {
-                                "method": "POST",
-                                "url": {
-                                    "raw": "{{host}}/products",
-                                    "host": ["{{host}}"],
-                                    "path": ["products"]
-                                },
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"name\": \"Sản phẩm mới\",\n  \"slug\": \"san-pham-moi\",\n  \"description\": \"Mô tả sản phẩm mới\",\n  \"price\": 150000,\n  \"discountPrice\": 120000,\n  \"images\": [\"img3.jpg\"],\n  \"stock\": 20,\n  \"sku\": \"SKU003\",\n  \"status\": \"published\",\n  \"featured\": false,\n  \"ratings\": 5\n}"
-                                }
-                            },
-                            "status": "Created",
-                            "code": 201,
-                            "body": "{\n  \"_id\": \"3\", \"name\": \"Sản phẩm mới\", \"slug\": \"san-pham-moi\", \"description\": \"Mô tả sản phẩm mới\", \"price\": 150000, \"discountPrice\": 120000, \"images\": [\"img3.jpg\"], \"stock\": 20, \"sku\": \"SKU003\", \"status\": \"published\", \"featured\": false, \"ratings\": 5 }"
-                        }
-                    ]
+                    "response": []
                 },
                 {
                     "name": "Cập nhật sản phẩm",
@@ -269,34 +220,15 @@
                         "header": [{ "key": "Content-Type", "value": "application/json" }],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"name\": \"Tên mới\",\n  \"slug\": \"ten-moi\",\n  \"description\": \"Mô tả mới\",\n  \"price\": 200000,\n  \"discountPrice\": 180000,\n  \"images\": [\"img4.jpg\"],\n  \"stock\": 15,\n  \"sku\": \"SKU001\",\n  \"status\": \"published\",\n  \"featured\": true,\n  \"ratings\": 4.8\n}"
+                            "raw": "{\n  \"name\": \"Sản phẩm cập nhật\",\n  \"price\": 200000\n}"
                         },
                         "url": {
-                            "raw": "{{host}}/products/1",
+                            "raw": "{{host}}/products/:id",
                             "host": ["{{host}}"],
-                            "path": ["products", "1"]
+                            "path": ["products", ":id"]
                         }
                     },
-                    "response": [
-                        {
-                            "name": "Sản phẩm đã cập nhật",
-                            "originalRequest": {
-                                "method": "PUT",
-                                "url": {
-                                    "raw": "{{host}}/products/1",
-                                    "host": ["{{host}}"],
-                                    "path": ["products", "1"]
-                                },
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"name\": \"Tên mới\",\n  \"slug\": \"ten-moi\",\n  \"description\": \"Mô tả mới\",\n  \"price\": 200000,\n  \"discountPrice\": 180000,\n  \"images\": [\"img4.jpg\"],\n  \"stock\": 15,\n  \"sku\": \"SKU001\",\n  \"status\": \"published\",\n  \"featured\": true,\n  \"ratings\": 4.8\n}"
-                                }
-                            },
-                            "status": "OK",
-                            "code": 200,
-                            "body": "{\n  \"_id\": \"1\", \"name\": \"Tên mới\", \"slug\": \"ten-moi\", \"description\": \"Mô tả mới\", \"price\": 200000, \"discountPrice\": 180000, \"images\": [\"img4.jpg\"], \"stock\": 15, \"sku\": \"SKU001\", \"status\": \"published\", \"featured\": true, \"ratings\": 4.8 }"
-                        }
-                    ]
+                    "response": []
                 },
                 {
                     "name": "Xóa sản phẩm",
@@ -304,25 +236,69 @@
                         "method": "DELETE",
                         "header": [],
                         "url": {
-                            "raw": "{{host}}/products/1",
+                            "raw": "{{host}}/products/:id",
                             "host": ["{{host}}"],
-                            "path": ["products", "1"]
+                            "path": ["products", ":id"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Xác thực",
+            "item": [
+                {
+                    "name": "Đăng ký tài khoản",
+                    "request": {
+                        "method": "POST",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Nguyễn Văn A\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0987654321\",\n  \"role\": \"customer\",\n  \"addresses\": [\n    { \"street\": \"123 Đường A\", \"city\": \"Hà Nội\", \"isDefault\": true }\n  ],\n  \"avatar\": \"https://example.com/avatar.png\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/signup",
+                            "host": ["{{host}}"],
+                            "path": ["signup"]
                         }
                     },
                     "response": [
                         {
-                            "name": "Kết quả xóa sản phẩm",
+                            "name": "Đăng ký thành công",
                             "originalRequest": {
-                                "method": "DELETE",
+                                "method": "POST",
                                 "url": {
-                                    "raw": "{{host}}/products/1",
+                                    "raw": "{{host}}/signup",
                                     "host": ["{{host}}"],
-                                    "path": ["products", "1"]
+                                    "path": ["signup"]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Nguyễn Văn A\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0987654321\",\n  \"role\": \"customer\",\n  \"addresses\": [\n    { \"street\": \"123 Đường A\", \"city\": \"Hà Nội\", \"isDefault\": true }\n  ],\n  \"avatar\": \"https://example.com/avatar.png\"\n}"
                                 }
                             },
-                            "status": "OK",
-                            "code": 200,
-                            "body": "{\n  \"success\": true }"
+                            "status": "Created",
+                            "code": 201,
+                            "body": "{\n  \"message\": \"Đăng ký thành công\",\n  \"user\": {\n    \"_id\": \"665f1b2c2c1e2a001e8b4567\",\n    \"name\": \"Nguyễn Văn A\",\n    \"email\": \"test@example.com\",\n    \"role\": \"customer\",\n    \"phone\": \"0987654321\",\n    \"addresses\": [\n      {\n        \"street\": \"123 Đường A\",\n        \"city\": \"Hà Nội\",\n        \"isDefault\": true\n      }\n    ],\n    \"avatar\": \"https://example.com/avatar.png\"\n  }\n}"
+                        },
+                        {
+                            "name": "Lỗi validate",
+                            "originalRequest": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "{{host}}/signup",
+                                    "host": ["{{host}}"],
+                                    "path": ["signup"]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"\",\n  \"email\": \"saiemail\",\n  \"password\": \"123\",\n  \"phone\": \"12345\"\n}"
+                                }
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Tên không được để trống, Email không hợp lệ, Mật khẩu phải có ít nhất 6 ký tự, Số điện thoại phải có đúng 10 chữ số\"\n}"
                         }
                     ]
                 }
