@@ -1,14 +1,17 @@
 import User from "../models/user";
-import bcryptjs from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
     try {
+        // lấy dữ liệu từ client (name, email, password) gửi lên => req.body
         const { name, email, password } = req.body;
-        const hashedPassword = await bcryptjs.hash(password, 10);
-
+        // mã hóa mật khẩu => bcryptjs
+        const hashedPassword = await bcrypt.hash(password, 10);
+        // lưu dữ liệu vào database => User
         const user = await User.create({ name, email, password: hashedPassword });
+        user.password = undefined;
+        // trả về client thông tin user sau khi đăng ký thành công
         return res.status(201).json({
-            success: true,
             message: "Đăng ký thành công",
             user,
         });
