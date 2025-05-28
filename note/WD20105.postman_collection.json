@@ -7,7 +7,7 @@
     },
     "item": [
         {
-            "name": "Posts CRUD",
+            "name": "Bài viết",
             "item": [
                 {
                     "name": "Lấy danh sách bài viết",
@@ -168,7 +168,7 @@
             ]
         },
         {
-            "name": "Products CRUD",
+            "name": "Sản phẩm",
             "item": [
                 {
                     "name": "Lấy danh sách sản phẩm",
@@ -242,6 +242,47 @@
                         }
                     },
                     "response": []
+                }
+            ]
+        },
+        {
+            "name": "Xác thực",
+            "item": [
+                {
+                    "name": "Đăng ký",
+                    "request": {
+                        "method": "POST",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"a@gmail.com\",\n  \"password\": \"12345678\",\n  \"phone\": \"0912345678\",\n  \"role\": \"customer\",\n  \"avatar\": \"https://i.pravatar.cc/150?img=1\",\n  \"addresses\": [\n    {\n      \"street\": \"123 Đường ABC\",\n      \"city\": \"Hà Nội\",\n      \"isDefault\": true\n    },\n    {\n      \"street\": \"456 Đường XYZ\",\n      \"city\": \"Hồ Chí Minh\",\n      \"isDefault\": false\n    }\n  ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/auth/signup",
+                            "host": ["{{host}}"],
+                            "path": ["auth", "signup"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Đăng ký thành công",
+                            "originalRequest": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "{{host}}/auth/signup",
+                                    "host": ["{{host}}"],
+                                    "path": ["auth", "signup"]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Nguyen Van A\",\n  \"email\": \"a@gmail.com\",\n  \"password\": \"12345678\",\n  \"phone\": \"0912345678\",\n  \"role\": \"customer\",\n  \"avatar\": \"https://i.pravatar.cc/150?img=1\",\n  \"addresses\": [\n    {\n      \"street\": \"123 Đường ABC\",\n      \"city\": \"Hà Nội\",\n      \"isDefault\": true\n    },\n    {\n      \"street\": \"456 Đường XYZ\",\n      \"city\": \"Hồ Chí Minh\",\n      \"isDefault\": false\n    }\n  ]\n}"
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "body": "{\n  \"message\": \"Đăng ký thành công\",\n  \"user\": {\n    \"_id\": \"660f1e2b8f1b2c0012345678\",\n    \"name\": \"Nguyen Van A\",\n    \"email\": \"a@gmail.com\",\n    \"phone\": \"0912345678\",\n    \"role\": \"customer\",\n    \"avatar\": \"https://i.pravatar.cc/150?img=1\",\n    \"addresses\": [\n      {\n        \"street\": \"123 Đường ABC\",\n        \"city\": \"Hà Nội\",\n        \"isDefault\": true\n      },\n      {\n        \"street\": \"456 Đường XYZ\",\n        \"city\": \"Hồ Chí Minh\",\n        \"isDefault\": false\n      }\n    ],\n    \"createdAt\": \"2024-05-01T10:00:00.000Z\",\n    \"updatedAt\": \"2024-05-01T10:00:00.000Z\"\n  }\n}"
+                        }
+                    ]
                 }
             ]
         }
