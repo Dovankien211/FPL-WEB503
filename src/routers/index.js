@@ -1,15 +1,7 @@
-import { Router } from "express";
-import routePost from "./posts";
-import routeProduct from "./product";
-import authRouter from "./auth";
+import express from "express";
+import routePost from "./post";
+const router = express.Router();
 
-const router = Router();
-
-// Sử dụng router cho bài viết
 router.use("/posts", routePost);
-
-// Sử dụng router cho sản phẩm
-router.use("/products", routeProduct);
-router.use("/auth", authRouter);
 
 export default router;
