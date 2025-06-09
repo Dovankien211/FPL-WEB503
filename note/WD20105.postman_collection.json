@@ -321,6 +321,167 @@
                     ]
                 }
             ]
+        },
+        {
+            "name": "Danh mục",
+            "item": [
+                {
+                    "name": "Lấy danh sách danh mục",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/categories",
+                            "host": ["{{host}}"],
+                            "path": ["categories"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Danh sách danh mục mẫu",
+                            "originalRequest": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "{{host}}/categories",
+                                    "host": ["{{host}}"],
+                                    "path": ["categories"]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "body": "[{\n  \"_id\": \"661111111111111111111111\", \"name\": \"Thời trang\", \"createdAt\": \"2024-05-01T10:00:00.000Z\", \"updatedAt\": \"2024-05-01T10:00:00.000Z\" },{\n  \"_id\": \"661222222222222222222222\", \"name\": \"Điện tử\", \"createdAt\": \"2024-05-01T10:00:00.000Z\", \"updatedAt\": \"2024-05-01T10:00:00.000Z\" }]"
+                        }
+                    ]
+                },
+                {
+                    "name": "Lấy chi tiết danh mục theo id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/categories/661111111111111111111111",
+                            "host": ["{{host}}"],
+                            "path": ["categories", "661111111111111111111111"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Chi tiết danh mục id=661111111111111111111111",
+                            "originalRequest": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "{{host}}/categories/661111111111111111111111",
+                                    "host": ["{{host}}"],
+                                    "path": ["categories", "661111111111111111111111"]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n  \"_id\": \"661111111111111111111111\", \"name\": \"Thời trang\", \"createdAt\": \"2024-05-01T10:00:00.000Z\", \"updatedAt\": \"2024-05-01T10:00:00.000Z\" }"
+                        }
+                    ]
+                },
+                {
+                    "name": "Thêm danh mục mới",
+                    "request": {
+                        "method": "POST",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Đồ gia dụng\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/categories",
+                            "host": ["{{host}}"],
+                            "path": ["categories"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Danh mục mới được thêm",
+                            "originalRequest": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "{{host}}/categories",
+                                    "host": ["{{host}}"],
+                                    "path": ["categories"]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Đồ gia dụng\"\n}"
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "body": "{\n  \"_id\": \"661333333333333333333333\", \"name\": \"Đồ gia dụng\", \"createdAt\": \"2024-05-01T10:00:00.000Z\", \"updatedAt\": \"2024-05-01T10:00:00.000Z\" }"
+                        }
+                    ]
+                },
+                {
+                    "name": "Cập nhật danh mục",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Đồ điện tử\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/categories/661333333333333333333333",
+                            "host": ["{{host}}"],
+                            "path": ["categories", "661333333333333333333333"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Danh mục đã cập nhật",
+                            "originalRequest": {
+                                "method": "PUT",
+                                "url": {
+                                    "raw": "{{host}}/categories/661333333333333333333333",
+                                    "host": ["{{host}}"],
+                                    "path": ["categories", "661333333333333333333333"]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Đồ điện tử\"\n}"
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n  \"_id\": \"661333333333333333333333\", \"name\": \"Đồ điện tử\", \"createdAt\": \"2024-05-01T10:00:00.000Z\", \"updatedAt\": \"2024-05-01T10:00:00.000Z\" }"
+                        }
+                    ]
+                },
+                {
+                    "name": "Xóa danh mục",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/categories/661333333333333333333333",
+                            "host": ["{{host}}"],
+                            "path": ["categories", "661333333333333333333333"]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Kết quả xóa danh mục",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "url": {
+                                    "raw": "{{host}}/categories/661333333333333333333333",
+                                    "host": ["{{host}}"],
+                                    "path": ["categories", "661333333333333333333333"]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{\n  \"success\": true }"
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "variable": [
