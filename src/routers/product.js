@@ -5,6 +5,7 @@ import {
     createProduct,
     updateProduct,
     deleteProduct,
+    getRelatedProducts,
 } from "../controllers/product";
 import { validateRequest } from "../middleware/validateRequest";
 import { createProductSchema, updateProductSchema } from "../validations/product";
@@ -18,6 +19,8 @@ routeProduct.get("/", getProducts);
 // Lấy chi tiết sản phẩm
 routeProduct.get("/:id", getProductById);
 
+// sản phẩm liên quan
+routeProduct.get("/related/:id", getRelatedProducts);
 routeProduct.use(verifyJWT);
 routeProduct.use(restrictTo("admin"));
 

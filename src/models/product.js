@@ -13,6 +13,10 @@ const productSchema = new mongoose.Schema(
             unique: true,
             lowercase: true,
         },
+        category: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category",
+        },
         description: {
             type: String,
             required: [true, "Mô tả sản phẩm là bắt buộc"],

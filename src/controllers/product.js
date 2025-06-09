@@ -58,6 +58,25 @@ export const deleteProduct = async (req, res) => {
     }
 };
 
+export const getRelatedProducts = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product)
+            return res.status(400).json({
+                message: "Không tìm thấy sản phẩm",
+            });
+        const products = await Product.find({
+            category: product.category,
+            _id: { $ne: product._id },
+        });
+        return res.status(200).json(products);
+    } catch (error) {}
+};
 // Bước 1: Cài đặt joi
 // Bước 2: Tạo Schema
 // Bước 3: Sử dụng joi để validate dữ liệu : schema.validate(req.body)
+
+/**
+ * - Tìm Id danh mục
+ * - tìm sản phẩm có id là danh mục đấy
+ */
