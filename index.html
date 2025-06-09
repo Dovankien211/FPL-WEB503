@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .box {
+                --n: 6;
+
+                --f: calc(var(--n) / 2);
+                height: 100px;
+                margin: 10px;
+            }
+            :nth-child(1 of .box) {
+                /* I am green because the browser will not perform the calculation */
+                background: if(style(--f: 3): red; else: green);
+            }
+            :nth-child(2 of .box) {
+                /* It will see the value as it is */
+                background: if(style(--f: calc(var(--n) / 2)): red; else: green);
+            }
+            @container @layer 
+            nested css;
+        </style>
+    </head>
+    <body>
+        <div class="box"></div>
+        <div class="box"></div>
+    </body>
+</html>
