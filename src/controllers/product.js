@@ -1,10 +1,9 @@
 import Product from "../models/product";
-import { createProductSchema } from "../validations/product";
 
 // Lấy danh sách sản phẩm
 export const getProducts = async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.paginate();
         res.json(products);
     } catch (err) {
         res.status(500).json({ error: "Lỗi server", message: err.message });
