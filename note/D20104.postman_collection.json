@@ -359,9 +359,9 @@
                             "raw": "{\n  \"name\": \"Nguyễn Văn A\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0987654321\",\n  \"role\": \"customer\",\n  \"addresses\": [{ \"street\": \"123 Đường A\", \"city\": \"Hà Nội\", \"isDefault\": true }],\n  \"avatar\": \"https://example.com/avatar.png\"\n}"
                         },
                         "url": {
-                            "raw": "{{host}}/signup",
+                            "raw": "{{host}}/auth/signup",
                             "host": ["{{host}}"],
-                            "path": ["signup"]
+                            "path": ["/auth/signup"]
                         }
                     },
                     "response": []
@@ -373,12 +373,12 @@
                         "header": [{ "key": "Content-Type", "value": "application/json" }],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\"\n}"
+                            "raw": "{\n  \"email\": \"admin@gmail.com\",\n  \"password\": \"123456\"\n}"
                         },
                         "url": {
-                            "raw": "{{host}}/signin",
+                            "raw": "{{host}}/auth/signin",
                             "host": ["{{host}}"],
-                            "path": ["signin"]
+                            "path": ["/auth/signin"]
                         }
                     },
                     "event": [
@@ -403,7 +403,7 @@
     "variable": [
         {
             "key": "host",
-            "value": "http://localhost:8000/api"
+            "value": "http://localhost:3000/api"
         }
     ]
 }
