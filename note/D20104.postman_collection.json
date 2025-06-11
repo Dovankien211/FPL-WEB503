@@ -246,6 +246,107 @@
             ]
         },
         {
+            "name": "Danh mục",
+            "item": [
+                {
+                    "name": "Lấy danh sách danh mục",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/categories",
+                            "host": ["{{host}}"],
+                            "path": ["categories"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Lấy chi tiết danh mục theo id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/categories/1",
+                            "host": ["{{host}}"],
+                            "path": ["categories", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Thêm danh mục mới",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            { "key": "Content-Type", "value": "application/json" },
+                            { "key": "Authorization", "value": "Bearer {{token}}" }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Đồ gia dụng\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/categories",
+                            "host": ["{{host}}"],
+                            "path": ["categories"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Cập nhật danh mục",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            { "key": "Content-Type", "value": "application/json" },
+                            { "key": "Authorization", "value": "Bearer {{token}}" }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Đồ điện tử\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{host}}/categories/1",
+                            "host": ["{{host}}"],
+                            "path": ["categories", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Xóa danh mục",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+                        "url": {
+                            "raw": "{{host}}/categories/1",
+                            "host": ["{{host}}"],
+                            "path": ["categories", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Lấy sản phẩm theo danh mục",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}/categories/1/products?_sort=price&_order=asc",
+                            "host": ["{{host}}"],
+                            "path": ["categories", "1", "products"],
+                            "query": [
+                                { "key": "_sort", "value": "price" },
+                                { "key": "_order", "value": "asc" }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
             "name": "Xác thực",
             "item": [
                 {
@@ -255,7 +356,7 @@
                         "header": [{ "key": "Content-Type", "value": "application/json" }],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"name\": \"Nguyễn Văn A\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0987654321\",\n  \"role\": \"customer\",\n  \"addresses\": [\n    { \"street\": \"123 Đường A\", \"city\": \"Hà Nội\", \"isDefault\": true }\n  ],\n  \"avatar\": \"https://example.com/avatar.png\"\n}"
+                            "raw": "{\n  \"name\": \"Nguyễn Văn A\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0987654321\",\n  \"role\": \"customer\",\n  \"addresses\": [{ \"street\": \"123 Đường A\", \"city\": \"Hà Nội\", \"isDefault\": true }],\n  \"avatar\": \"https://example.com/avatar.png\"\n}"
                         },
                         "url": {
                             "raw": "{{host}}/signup",
@@ -263,44 +364,38 @@
                             "path": ["signup"]
                         }
                     },
-                    "response": [
-                        {
-                            "name": "Đăng ký thành công",
-                            "originalRequest": {
-                                "method": "POST",
-                                "url": {
-                                    "raw": "{{host}}/signup",
-                                    "host": ["{{host}}"],
-                                    "path": ["signup"]
-                                },
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"name\": \"Nguyễn Văn A\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0987654321\",\n  \"role\": \"customer\",\n  \"addresses\": [\n    { \"street\": \"123 Đường A\", \"city\": \"Hà Nội\", \"isDefault\": true }\n  ],\n  \"avatar\": \"https://example.com/avatar.png\"\n}"
-                                }
-                            },
-                            "status": "Created",
-                            "code": 201,
-                            "body": "{\n  \"message\": \"Đăng ký thành công\",\n  \"user\": {\n    \"_id\": \"665f1b2c2c1e2a001e8b4567\",\n    \"name\": \"Nguyễn Văn A\",\n    \"email\": \"test@example.com\",\n    \"role\": \"customer\",\n    \"phone\": \"0987654321\",\n    \"addresses\": [\n      {\n        \"street\": \"123 Đường A\",\n        \"city\": \"Hà Nội\",\n        \"isDefault\": true\n      }\n    ],\n    \"avatar\": \"https://example.com/avatar.png\"\n  }\n}"
+                    "response": []
+                },
+                {
+                    "name": "Đăng nhập",
+                    "request": {
+                        "method": "POST",
+                        "header": [{ "key": "Content-Type", "value": "application/json" }],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\"\n}"
                         },
-                        {
-                            "name": "Lỗi validate",
-                            "originalRequest": {
-                                "method": "POST",
-                                "url": {
-                                    "raw": "{{host}}/signup",
-                                    "host": ["{{host}}"],
-                                    "path": ["signup"]
-                                },
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"name\": \"\",\n  \"email\": \"saiemail\",\n  \"password\": \"123\",\n  \"phone\": \"12345\"\n}"
-                                }
-                            },
-                            "status": "Bad Request",
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Tên không được để trống, Email không hợp lệ, Mật khẩu phải có ít nhất 6 ký tự, Số điện thoại phải có đúng 10 chữ số\"\n}"
+                        "url": {
+                            "raw": "{{host}}/signin",
+                            "host": ["{{host}}"],
+                            "path": ["signin"]
                         }
-                    ]
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "if(jsonData.token){",
+                                    "    pm.environment.set(\"token\", jsonData.token);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "response": []
                 }
             ]
         }
