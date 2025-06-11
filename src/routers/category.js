@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { createCategory, getCategories, getCategoryById } from "../controllers/category";
+import {
+    createCategory,
+    deleteCategory,
+    getCategories,
+    getCategoryById,
+    updateCategory,
+} from "../controllers/category";
 
 const routeCategory = Router();
 
@@ -12,5 +18,8 @@ routeCategory.get("/:id", getCategoryById);
 // Thêm sản phẩm mới
 routeCategory.post("/", createCategory);
 // Cập nhật sản phẩm
+routeCategory.put("/:id", updateCategory);
+// Xóa sản phẩm
+routeCategory.delete("/:id", deleteCategory);
 
 export default routeCategory;
