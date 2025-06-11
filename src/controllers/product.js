@@ -2,8 +2,20 @@ import Product from "../models/product";
 
 // Lấy danh sách sản phẩm
 export const getProducts = async (req, res) => {
+    // /products?_sort=price&_order=desc
+
+    const { _page = 1, _limit = 10, _sort = "price", _order = "desc" } = req.query;
+    const options = {
+        select: "name price category",
+        page: _page,
+        limit: _limit,
+        populate: "category",
+        sort: {
+            [_sort]: _order === "desc" ? 1 : -1,
+        },
+    };
     try {
-        const products = await Product.paginate();
+        const products = await Product.paginate({}, options);
         res.json(products);
     } catch (err) {
         res.status(500).json({ error: "Lỗi server", message: err.message });

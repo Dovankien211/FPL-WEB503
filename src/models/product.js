@@ -17,6 +17,7 @@ const productSchema = new mongoose.Schema(
         category: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Category",
+            required: [true, "Danh mục sản phẩm là bắt buộc"],
         },
         description: {
             type: String,

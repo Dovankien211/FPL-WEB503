@@ -21,8 +21,8 @@ routeProduct.get("/:id", getProductById);
 
 // sản phẩm liên quan
 routeProduct.get("/related/:id", getRelatedProducts);
-routeProduct.use(verifyJWT);
-routeProduct.use(restrictTo("admin"));
+// routeProduct.use(verifyJWT);
+// routeProduct.use(restrictTo("admin"));
 
 // Thêm sản phẩm mới
 routeProduct.post("/", validateRequest(createProductSchema), createProduct);

@@ -13,6 +13,11 @@ export const createProductSchema = Joi.object({
         "string.empty": "Slug không được để trống",
         "any.required": "Slug là bắt buộc",
     }),
+    category: Joi.string().required().messages({
+        "string.base": "Danh mục sản phẩm phải là chuỗi",
+        "string.empty": "Danh mục sản phẩm không được để trống",
+        "any.required": "Danh mục sản phẩm là bắt buộc",
+    }),
     description: Joi.string().required().messages({
         "string.base": "Mô tả sản phẩm phải là chuỗi",
         "string.empty": "Mô tả sản phẩm không được để trống",
