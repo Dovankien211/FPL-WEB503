@@ -1,10 +1,18 @@
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+
 const app = express();
-app.use(express.json());
+
 // Kết nối db
-mongoose.connect(`mongodb://localhost:27017/reviews`);
+mongoose.connect(`mongodb://localhost:27017/web503`);
+// middleware
 
-// routers
+app.use(express.json());
+// router
 
-export const viteNodeApp = app;
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
