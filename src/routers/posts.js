@@ -2,16 +2,18 @@ import { Router } from "express";
 
 const postRouter = Router();
 
-// GET /hello?name=Teo
-postRouter.get("/hello", (req, res) => {
-    const name = req.query.name || "bạn"; // Lấy giá trị 'name' từ query string
-    res.json({ message: `Xin chào, ${name}!` }); // Trả về JSON với lời chào
+let posts = [
+    { id: 1, title: "Bài viết 1", content: "Nội dung bài viết 1" }, // p
+    { id: 2, title: "Bài viết 2", content: "Nội dung bài viết 2" }, // p
+];
+
+// api/posts
+postRouter.get("/", (req, res) => {
+    return res.json(posts);
 });
 
-// GET /posts/:id
 postRouter.get("/:id", (req, res) => {
-    const id = req.params.id; // Lấy giá trị 'id' từ URL
-    res.json({ id, message: "Chi tiết bài viết" }); // Trả về JSON với thông tin bài viết
+    const post = posts.find((p) => p.id === parseInt(req.params.id));
+    return res.json(post);
 });
-
 export default postRouter;
