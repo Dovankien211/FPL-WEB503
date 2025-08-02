@@ -11,9 +11,20 @@ export const getPosts = async (req, res) => {
     }
 };
 
-const getPostById = async (req, res) => {
+export const getPostById = async (req, res) => {
     try {
-    } catch (error) {}
+        const post = await Post.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json({
+                error: "Không tìm thấy bài viết",
+            });
+        }
+        return res.json(post);
+    } catch (error) {
+        return res.status(500).json({
+            error: "Lỗi",
+        });
+    }
 };
 export const createPost = async (req, res) => {
     try {
@@ -25,11 +36,25 @@ export const createPost = async (req, res) => {
         });
     }
 };
-const updatePost = async (req, res) => {
+export const updatePost = async (req, res) => {
     try {
-    } catch (error) {}
+        const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        return res.json(post);
+    } catch (error) {
+        return res.status(500).json({
+            error: "Lỗi",
+        });
+    }
 };
-const deletePost = async (req, res) => {
+export const deletePost = async (req, res) => {
     try {
-    } catch (error) {}
+        await Post.findByIdAndDelete(req.params.id);
+        return res.json({
+            message: "Xóa bài viết thành công",
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: "Lỗi",
+        });
+    }
 };
