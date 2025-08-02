@@ -1,4 +1,10 @@
 import Post from "../models/post.model";
+import Joi from "joi";
+
+const postSchema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+});
 
 export const getPosts = async (req, res) => {
     try {
@@ -28,8 +34,13 @@ export const getPostById = async (req, res) => {
 };
 export const createPost = async (req, res) => {
     try {
-        const post = await Post.create(req.body);
-        return res.json(post);
+        const { error } = postSchema.validate(req.body, { abortEarly: false });
+        if (error) {
+            return res.status(500).json({ errors: error.details.map((err) => err.message) });
+        } else {
+            const post = await Post.create(req.body);
+            return res.json(post);
+        }
     } catch (error) {
         return res.status(500).json({
             error: "Lỗi",
