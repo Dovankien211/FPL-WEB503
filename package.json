@@ -1,31 +1,35 @@
 {
-    "name": "nodejs",
+    "name": "fpl-web503",
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
         "dev": "nodemon --exec babel-node src/app.js"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/datlt2306/FPL-WEB503.git"
+    },
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "description": "",
-    "devDependencies": {
-        "@babel/core": "^7.27.1",
-        "@babel/node": "^7.27.1",
-        "@babel/preset-env": "^7.27.2",
-        "nodemon": "^3.1.10",
-        "vite": "^5.4.11",
-        "vite-plugin-node": "^4.0.0"
+    "bugs": {
+        "url": "https://github.com/datlt2306/FPL-WEB503/issues"
     },
+    "homepage": "https://github.com/datlt2306/FPL-WEB503#readme",
+    "description": "",
     "dependencies": {
-        "bcryptjs": "^2.4.3",
+        "bcryptjs": "^3.0.2",
         "cors": "^2.8.5",
-        "dotenv": "^16.5.0",
-        "express": "^4.21.2",
-        "joi": "^17.13.3",
+        "dotenv": "^17.2.1",
+        "express": "^5.1.0",
         "jsonwebtoken": "^9.0.2",
-        "mongoose": "^8.14.2",
-        "mongoose-paginate-v2": "^1.9.1",
-        "morgan": "^1.10.0"
+        "mongoose": "^8.17.0",
+        "morgan": "^1.10.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.28.0",
+        "@babel/node": "^7.28.0",
+        "@babel/preset-env": "^7.28.0",
+        "nodemon": "^3.1.10"
     }
 }
