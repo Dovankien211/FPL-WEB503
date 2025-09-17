@@ -14,9 +14,19 @@ const app = express();
 // app.use(express.json());
 // router
 
-app.use("/posts", postRouter);
-app.use("/hello", () => {
-    console.log("Chào bạn");
+// app.use("/posts", postRouter);
+
+app.use("/hello", (req, res) => {
+    const name = req.query.name || "Bạn!";
+    return res.json({
+        message: `Hello ${name}`,
+    });
+});
+app.use("/posts/:id", (req, res) => {
+    const id = req.params.id;
+    return res.json({
+        message: `Chi tiết bài viết ${id}`,
+    });
 });
 const port = process.env.PORT || 3000;
 
