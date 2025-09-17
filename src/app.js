@@ -10,36 +10,11 @@ const app = express();
 // Kết nối db
 // mongoose.connect(`mongodb://localhost:27017/web503`);
 // middleware
+app.use(express.json());
 
-// app.use(express.json());
 // router
-
-// app.use("/posts", postRouter);
-
-app.use("/hello", (req, res) => {
-    const name = req.query.name || "Bạn!";
-    return res.json({
-        message: `Hello ${name}`,
-    });
-});
-app.use("/posts/:id", (req, res) => {
-    const id = req.params.id;
-    return res.json({
-        message: `Chi tiết bài viết ${id}`,
-    });
-});
-app.use("/api/posts/greet", (req, res) => {
-    const name = req.query.name || "Bạn!";
-    return res.json({
-        message: `Hello ${name}`,
-    });
-});
-app.use("/api/posts/sum", (req, res) => {
-    const a = parseInt(req.query.a) || 0;
-    const b = parseInt(req.query.b) || 0;
-    return res.json({
-        message: `Tổng là ${a + b}`,
-    });
+app.post("/posts", (req, res) => {
+    console.log(req.body);
 });
 const port = process.env.PORT || 3000;
 
