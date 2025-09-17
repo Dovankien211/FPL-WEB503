@@ -28,6 +28,19 @@ app.use("/posts/:id", (req, res) => {
         message: `Chi tiết bài viết ${id}`,
     });
 });
+app.use("/api/posts/greet", (req, res) => {
+    const name = req.query.name || "Bạn!";
+    return res.json({
+        message: `Hello ${name}`,
+    });
+});
+app.use("/api/posts/sum", (req, res) => {
+    const a = parseInt(req.query.a) || 0;
+    const b = parseInt(req.query.b) || 0;
+    return res.json({
+        message: `Tổng là ${a + b}`,
+    });
+});
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
