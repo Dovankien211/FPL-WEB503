@@ -1,13 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
 import router from "./routers";
+import mongoose from "mongoose";
 
 dotenv.config();
 
 const app = express();
 
 // Kết nối db
-// mongoose.connect(`mongodb://localhost:27017/web503`);
+mongoose.connect(`mongodb://localhost:27017/wd20203`);
 // middleware
 app.use(express.json());
 
