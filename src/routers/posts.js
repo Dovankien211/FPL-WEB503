@@ -7,7 +7,7 @@ import {
     updatePost,
 } from "../controllers/post.controller";
 import validateRequest from "../middlewares/validateRequest";
-import { postSchema } from "../validation/post.schema";
+import { postSchema } from "../validation/post.validation";
 const postRouter = Router();
 
 // Lấy danh sách
