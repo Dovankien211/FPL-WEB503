@@ -1,0 +1,152 @@
+{
+    "info": {
+        "_postman_id": "e7114aec-1083-40ed-9e00-702270b98e41",
+        "name": "WD20203",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "generated"
+    },
+    "item": [
+        {
+            "name": "Bài viết",
+            "item": [
+                {
+                    "name": "Danh sách bài viết",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/api/posts",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3000",
+                            "path": ["api", "posts"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Chi tiết bài viết",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/api/posts/{{postId}}",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3000",
+                            "path": ["api", "posts", "{{postId}}"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Tạo bài viết",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Bài viết mẫu\",\n  \"content\": \"Nội dung bài viết\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/posts",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3000",
+                            "path": ["api", "posts"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Cập nhật bài viết",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Bài viết cập nhật\",\n  \"content\": \"Nội dung cập nhật\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/posts/{{postId}}",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3000",
+                            "path": ["api", "posts", "{{postId}}"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Xóa bài viết",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/api/posts/{{postId}}",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3000",
+                            "path": ["api", "posts", "{{postId}}"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Đăng ký",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"User A\",\n  \"email\": \"member@gmail.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0912345678\",\n  \"role\": \"customer\",\n  \"addresses\": [{ \"street\": \"1 A st\", \"city\": \"HCM\", \"isDefault\": true }],\n  \"avatar\": \"https://example.com/a.png\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/auth/signup",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3000",
+                            "path": ["api", "auth", "signup"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
