@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const postSchema = new mongoose.Schema({
-    name: {type: String, required: true},
+    tile: {type: String, required: true},
     content: {type: String, required: true},
     author: {type: String, required: true},
     createAt: {type: Date, default: Date.now},
