@@ -3,7 +3,7 @@ import Post from "../models/post.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    const limit = req.query.limit || 10;
+    const limit = req.query.limit || 0;
     const post = await Post.find();
     res.json(post);
 
