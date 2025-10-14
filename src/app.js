@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import postRouter from "../src/routes/post.js";
+import postRouter from "../src/routes/post.js"; // thêm đây 
 dotenv.config();
 
 const app = express();
