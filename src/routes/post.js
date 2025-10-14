@@ -3,8 +3,12 @@ import Post from "../models/post.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    const limit = req.query.limit || 0;
-    const post = await Post.find();
+    const limit = parseInt(req.query._limit) || 0;
+    const sortField = req.query._sort|| "createdAt";
+    const sortOrder = req.query._order === "desc" ? -1 : 1;
+    const post = await Post.find()
+    .sort({[sortField]: sortOrder})
+    .limit(limit);
     res.json(post);
 
 });
