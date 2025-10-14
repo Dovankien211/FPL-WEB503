@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import postRouter from "../src/routes/post.js";
 dotenv.config();
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 // router
 
 const port = process.env.PORT || 3000;
+app.use("/posts", postRouter);
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
