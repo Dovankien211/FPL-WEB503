@@ -14,7 +14,7 @@ app.use(express.json());
 // router
 
 const port = process.env.PORT || 3000;
-app.use("/posts", postRouter);
+app.use("/posts", postRouter); // thêm đây
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
